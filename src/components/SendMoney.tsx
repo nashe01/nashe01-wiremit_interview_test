@@ -8,6 +8,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useRates } from '@/context/RatesContext';
 import { useToast } from '@/hooks/use-toast';
 import ReviewTransaction from './ReviewTransaction';
+import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
+import 'react-phone-number-input/style.css';
 
 interface SendMoneyForm {
   destinationCountry: string;
@@ -81,7 +83,7 @@ const SendMoney: React.FC = () => {
 
   const validateCVV = (cvv: string) => /^[0-9]{3,4}$/.test(cvv);
 
-  const validateMobileNumber = (number: string) => /^\+\d{7,12}$/.test(number);
+  const validateMobileNumber = (number: string) => isValidPhoneNumber(number || '');
 
   const calculateFee = (amountUSD: number, targetCurrency: string): number => {
     let feeRate = 0.05;
@@ -131,7 +133,7 @@ const SendMoney: React.FC = () => {
         } else if (formData.paymentMethod === 'mobile-money') {
           return !!formData.senderMobile && validateMobileNumber(formData.senderMobile);
         }
-        return !!formData.paymentMethod; // Must choose a payment method
+        return !!formData.paymentMethod;
       default:
         return true;
     }
@@ -269,8 +271,16 @@ const SendMoney: React.FC = () => {
               {formData.paymentMethod === 'mobile-money' && (
                 <div>
                   <Label htmlFor="senderMobile">Sender Mobile Number</Label>
-                  <Input id="senderMobile" placeholder="Include country code (+27...)" value={formData.senderMobile} onChange={(e) => handleInputChange('senderMobile', e.target.value)} />
-                  {!validateMobileNumber(formData.senderMobile) && formData.senderMobile && (<p className="text-red-600 text-sm">Invalid mobile number. Include country code e.g., +27</p>)}
+                  <PhoneInput
+                    id="senderMobile"
+                    placeholder="Enter phone number"
+                    defaultCountry="ZA"
+                    value={formData.senderMobile}
+                    onChange={(value) => handleInputChange('senderMobile', value || '')}
+                  />
+                  {formData.senderMobile && !validateMobileNumber(formData.senderMobile) && (
+                    <p className="text-red-600 text-sm">Invalid mobile number</p>
+                  )}
                 </div>
               )}
             </div>
@@ -337,4 +347,5 @@ const SendMoney: React.FC = () => {
 };
 
 export default SendMoney;
+
 
