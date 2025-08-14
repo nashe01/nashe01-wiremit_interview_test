@@ -324,66 +324,63 @@ const SendMoney: React.FC = () => {
   };
 
   return (
-    <Card className="w-full max-w-2xl mx-auto">
-      <CardHeader>
-        <CardTitle className="flex items-center space-x-2">
-          <DollarSign className="w-5 h-5" />
-          <span>Send Money</span>
-        </CardTitle>
-        
-        {/* Progress Steps */}
-        <div className="flex items-center space-x-2 mt-4">
-          {[1, 2, 3, 4].map((step) => (
-            <React.Fragment key={step}>
-              <div
-                className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-colors ${
-                  step <= currentStep
-                    ? 'bg-primary text-primary-foreground'
-                    : 'bg-muted text-muted-foreground'
-                }`}
-              >
-                {step}
-              </div>
-              {step < 4 && (
-                <div
-                  className={`h-1 w-8 transition-colors ${
-                    step < currentStep ? 'bg-primary' : 'bg-muted'
-                  }`}
-                />
-              )}
-            </React.Fragment>
-          ))}
-        </div>
-      </CardHeader>
-
-      <CardContent>
-        <AnimatePresence mode="wait">
-          {renderStep()}
-        </AnimatePresence>
-
-        {/* Navigation Buttons */}
-        <div className="flex justify-between mt-8">
-          <Button
-            variant="outline"
-            onClick={prevStep}
-            disabled={currentStep === 1}
+    <div className="space-y-6 scroll-smooth">
+      {/* Progress Steps */}
+      <div className="flex justify-between items-center mb-8 scroll-smooth">
+        {[1, 2, 3, 4].map((step) => (
+          <div
+            key={step}
+            className={`flex items-center ${
+              step < currentStep ? 'text-primary' : step === currentStep ? 'text-primary' : 'text-muted-foreground'
+            }`}
           >
-            Previous
-          </Button>
-          
-          {currentStep < 4 ? (
-            <Button
-              onClick={nextStep}
-              disabled={!isStepValid(currentStep)}
-              className="btn-hero"
+            <div
+              className={`w-8 h-8 rounded-full border-2 flex items-center justify-center text-sm font-medium ${
+                step < currentStep
+                  ? 'bg-primary border-primary text-white'
+                  : step === currentStep
+                  ? 'border-primary text-primary'
+                  : 'border-muted-foreground text-muted-foreground'
+              }`}
             >
-              Continue
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </Button>
-          ) : null}
-        </div>
-      </CardContent>
-    </Card>
+              {step < currentStep ? '✓' : step}
+            </div>
+            {step < 4 && (
+              <div
+                className={`w-16 h-0.5 mx-2 ${
+                  step < currentStep ? 'bg-primary' : 'bg-muted-foreground'
+                }`}
+              />
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* Step Content */}
+      <AnimatePresence mode="wait">
+        {renderStep()}
+      </AnimatePresence>
+
+      {/* Navigation Buttons */}
+      <div className="flex justify-between pt-6 scroll-smooth">
+        <Button
+          variant="outline"
+          onClick={prevStep}
+          disabled={currentStep === 1}
+          className="scroll-smooth"
+        >
+          Previous
+        </Button>
+        
+        <Button
+          onClick={nextStep}
+          disabled={!isStepValid(currentStep)}
+          className="btn-hero scroll-smooth"
+        >
+          {currentStep === 4 ? 'Review & Send' : 'Next'}
+        </Button>
+      </div>
+    </div>
   );
 };
 

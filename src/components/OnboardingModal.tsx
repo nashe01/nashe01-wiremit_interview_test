@@ -20,8 +20,8 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ isOpen, onClose, onSu
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md p-0 bg-gradient-card border-0 shadow-elegant">
-        <div className="relative">
+      <DialogContent className="sm:max-w-md p-0 bg-gradient-card border-0 shadow-elegant scroll-smooth">
+        <div className="relative scroll-smooth">
           <Button
             variant="ghost"
             size="icon"
@@ -31,7 +31,7 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ isOpen, onClose, onSu
             <X className="w-4 h-4" />
           </Button>
           
-          <div className="p-6">
+          <div className="p-6 scroll-smooth">
             <AnimatePresence mode="wait">
               {currentView === 'signin' ? (
                 <motion.div
@@ -40,6 +40,7 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ isOpen, onClose, onSu
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: 20 }}
                   transition={{ duration: 0.3 }}
+                  className="scroll-smooth"
                 >
                   <SignInForm 
                     onSuccess={onSuccess}
@@ -53,6 +54,7 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ isOpen, onClose, onSu
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.3 }}
+                  className="scroll-smooth"
                 >
                   <SignUpForm 
                     onSuccess={onSuccess}

@@ -104,14 +104,21 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ onSuccess, onSwitchToSignIn }) 
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className="space-y-6"
+      className="space-y-6 scroll-smooth"
     >
-      <div className="text-center">
+      <div className="text-center scroll-smooth">
+        <div className="flex justify-center mb-4">
+          <img 
+            src="/logo.png" 
+            alt="WireMit Logo" 
+            className="w-16 h-16 object-contain"
+          />
+        </div>
         <h2 className="text-2xl font-bold gradient-text">Create Account</h2>
         <p className="text-muted-foreground mt-2">Join WireMit today</p>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4 scroll-smooth">
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label htmlFor="firstName">First Name *</Label>

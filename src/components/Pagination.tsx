@@ -54,12 +54,13 @@ const Pagination: React.FC<PaginationProps> = ({
   const visiblePages = getVisiblePages();
 
   return (
-    <div className="flex items-center justify-center space-x-2">
+    <div className="flex items-center justify-center space-x-2 scroll-smooth">
       <Button
         variant="outline"
         size="sm"
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
+        className="scroll-smooth"
       >
         <ChevronLeft className="w-4 h-4" />
       </Button>
@@ -73,7 +74,7 @@ const Pagination: React.FC<PaginationProps> = ({
               variant={currentPage === page ? 'default' : 'outline'}
               size="sm"
               onClick={() => onPageChange(page as number)}
-              className="min-w-[40px]"
+              className="min-w-[40px] scroll-smooth"
             >
               {page}
             </Button>
@@ -86,6 +87,7 @@ const Pagination: React.FC<PaginationProps> = ({
         size="sm"
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
+        className="scroll-smooth"
       >
         <ChevronRight className="w-4 h-4" />
       </Button>

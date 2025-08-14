@@ -67,15 +67,15 @@ const TransactionHistory: React.FC = () => {
   };
 
   return (
-    <Card className="w-full">
-      <CardHeader>
+    <Card className="w-full scroll-smooth">
+      <CardHeader className="scroll-smooth">
         <CardTitle className="flex items-center space-x-2">
           <Calendar className="w-5 h-5" />
           <span>Transaction History</span>
         </CardTitle>
         
         {/* Search and Filter */}
-        <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mt-4">
+        <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mt-4 scroll-smooth">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
             <Input

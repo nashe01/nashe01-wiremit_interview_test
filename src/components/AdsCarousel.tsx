@@ -47,10 +47,10 @@ const AdsCarousel: React.FC = () => {
   }
 
   return (
-    <Card className="w-full overflow-hidden">
-      <CardContent className="p-0">
+    <Card className="w-full overflow-hidden scroll-smooth">
+      <CardContent className="p-0 scroll-smooth">
         <div
-          className="relative h-64 bg-gradient-card"
+          className="relative h-64 bg-gradient-card scroll-smooth"
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >

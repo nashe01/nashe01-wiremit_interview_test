@@ -70,16 +70,16 @@ const ReviewTransaction: React.FC<ReviewTransactionProps> = ({
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="space-y-6"
+      className="space-y-6 scroll-smooth"
     >
-      <div className="text-center">
+      <div className="text-center scroll-smooth">
         <CheckCircle className="w-12 h-12 text-success mx-auto mb-4" />
         <h3 className="text-lg font-semibold">Review Your Transfer</h3>
         <p className="text-muted-foreground">Please review the details before confirming</p>
       </div>
 
-      <Card className="bg-muted/30">
-        <CardContent className="p-6 space-y-4">
+      <Card className="bg-muted/30 scroll-smooth">
+        <CardContent className="p-6 space-y-4 scroll-smooth">
           {/* Transfer Summary */}
           <div className="space-y-3">
             <div className="flex items-center justify-between">
