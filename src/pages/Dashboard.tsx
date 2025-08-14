@@ -92,7 +92,7 @@ const Dashboard: React.FC = () => {
 
             {/* Divider */}
             <div className="relative flex items-center justify-center my-8">
-              <div className="absolute inset-x-0 border-t border-border"></div>
+              
               <span className="bg-background px-4 text-muted-foreground text-sm font-medium">
                 Your past activity
               </span>
