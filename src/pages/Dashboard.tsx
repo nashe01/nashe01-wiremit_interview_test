@@ -54,12 +54,6 @@ const Dashboard: React.FC = () => {
                 <RefreshCw className={`w-4 h-4 mr-2 ${ratesLoading ? 'animate-spin' : ''}`} />
                 Refresh Rates
               </Button>
-              
-              <Button variant="ghost" size="sm" className="hidden sm:flex">
-                <User className="w-4 h-4 mr-2" />
-                Profile
-              </Button>
-              
               <Button variant="outline" size="sm" onClick={handleLogout}>
                 <LogOut className="w-4 h-4 mr-2" />
                 Logout

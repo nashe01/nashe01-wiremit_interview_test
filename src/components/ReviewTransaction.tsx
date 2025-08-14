@@ -11,7 +11,7 @@ interface ReviewTransactionProps {
     destinationCountry: string;
     amount: string;
     currency: string;
-    deliveryMethod: string;
+    
     recipientName: string;
     recipientDetails: string;
     paymentMethod: string;
@@ -133,7 +133,7 @@ const ReviewTransaction: React.FC<ReviewTransactionProps> = ({
                 <Send className="w-4 h-4 text-muted-foreground" />
                 <span className="text-muted-foreground">Delivery method:</span>
               </div>
-              <span className="font-medium">{getDeliveryMethodName(formData.deliveryMethod)}</span>
+              
             </div>
             
             <div className="flex items-center justify-between">
@@ -147,7 +147,7 @@ const ReviewTransaction: React.FC<ReviewTransactionProps> = ({
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 <User className="w-4 h-4 text-muted-foreground" />
-                <span className="text-muted-foreground">{getRecipientDetailLabel(formData.deliveryMethod)}:</span>
+                  
               </div>
               <span className="font-medium">{formData.recipientDetails}</span>
             </div>
@@ -164,22 +164,7 @@ const ReviewTransaction: React.FC<ReviewTransactionProps> = ({
       </Card>
 
       {/* Collection Instructions */}
-      <Card className="bg-primary/5 border-primary/20">
-        <CardContent className="p-6">
-          <h4 className="font-semibold mb-3 text-primary">Collection Instructions</h4>
-          <div className="text-sm text-muted-foreground space-y-2">
-            {formData.deliveryMethod === 'cash-pickup' && (
-              <p>The recipient can collect cash from any of our agent locations with a valid ID and the transaction reference number.</p>
-            )}
-            {formData.deliveryMethod === 'bank-deposit' && (
-              <p>The money will be deposited directly into the recipient's bank account within 1-2 business days.</p>
-            )}
-            {(formData.deliveryMethod === 'ecocash' || formData.deliveryMethod === 'mpesa' || formData.deliveryMethod === 'mobile-money') && (
-              <p>The money will be sent directly to the recipient's mobile wallet within minutes.</p>
-            )}
-          </div>
-        </CardContent>
-      </Card>
+      
 
       {/* Action Buttons */}
       <div className="flex space-x-4">
