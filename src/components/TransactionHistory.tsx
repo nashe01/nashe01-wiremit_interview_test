@@ -70,8 +70,7 @@ const TransactionHistory: React.FC = () => {
     <Card className="w-full scroll-smooth">
       <CardHeader className="scroll-smooth">
         <CardTitle className="flex items-center space-x-2">
-          <Calendar className="w-5 h-5" />
-          <span>Transaction History</span>
+          
         </CardTitle>
         
         {/* Search and Filter */}

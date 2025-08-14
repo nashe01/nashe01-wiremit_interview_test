@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { Send, LogOut, User, History, RefreshCw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useAuth } from '@/context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import SendMoney from '@/components/SendMoney';
@@ -14,7 +13,6 @@ const Dashboard: React.FC = () => {
   const { user, logout } = useAuth();
   const { refreshRates, loading: ratesLoading } = useRates();
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState('send');
 
   const handleLogout = () => {
     logout();
@@ -74,69 +72,46 @@ const Dashboard: React.FC = () => {
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 scroll-smooth">
         <div className="grid lg:grid-cols-4 gap-8">
+          
           {/* Main Dashboard */}
           <div className="lg:col-span-3 space-y-8 scroll-smooth">
-            <motion.div
+            
+            {/* Send Money Section */}
+            <motion.section
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="scroll-smooth"
+              className="space-y-6 p-6 bg-card rounded-xl shadow-sm border border-border"
             >
-              <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-                <TabsList className="grid w-full grid-cols-2 lg:grid-cols-3">
-                  <TabsTrigger value="send" className="flex items-center space-x-2">
-                    <Send className="w-4 h-4" />
-                    <span>Send Money</span>
-                  </TabsTrigger>
-                  <TabsTrigger value="history" className="flex items-center space-x-2">
-                    <History className="w-4 h-4" />
-                    <span>History</span>
-                  </TabsTrigger>
-                  <TabsTrigger value="overview" className="hidden lg:flex items-center space-x-2">
-                    <User className="w-4 h-4" />
-                    <span>Overview</span>
-                  </TabsTrigger>
-                </TabsList>
+              <div className="flex items-center space-x-2 mb-4">
+                <Send className="w-5 h-5 text-primary" />
+                <h2 className="text-xl font-semibold">Send Money</h2>
+              </div>
+              <SendMoney />
+            </motion.section>
 
-                <TabsContent value="send" className="space-y-6">
-                  <SendMoney />
-                </TabsContent>
+            {/* Divider */}
+            <div className="relative flex items-center justify-center my-8">
+              <div className="absolute inset-x-0 border-t border-border"></div>
+              <span className="bg-background px-4 text-muted-foreground text-sm font-medium">
+                Your past activity
+              </span>
+            </div>
 
-                <TabsContent value="history" className="space-y-6">
-                  <TransactionHistory />
-                </TabsContent>
+            {/* Transaction History Section */}
+            <motion.section
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="space-y-6 p-6 bg-card rounded-xl shadow-sm border border-border"
+            >
+              <div className="flex items-center space-x-2 mb-4">
+                <History className="w-5 h-5 text-primary" />
+                <h2 className="text-xl font-semibold">Transaction History</h2>
+              </div>
+              <TransactionHistory />
+            </motion.section>
 
-                <TabsContent value="overview" className="space-y-6">
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="card-elevated"
-                  >
-                    <h3 className="text-lg font-semibold mb-4">Account Overview</h3>
-                    <div className="space-y-4">
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Full Name:</span>
-                        <span className="font-medium">
-                          {user?.firstName} {user?.middleName} {user?.secondName}
-                        </span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Email:</span>
-                        <span className="font-medium">{user?.email}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Account Status:</span>
-                        <span className="font-medium text-success">Active</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Member Since:</span>
-                        <span className="font-medium">January 2024</span>
-                      </div>
-                    </div>
-                  </motion.div>
-                </TabsContent>
-              </Tabs>
-            </motion.div>
           </div>
 
           {/* Sidebar */}
