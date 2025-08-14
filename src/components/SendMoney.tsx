@@ -1,20 +1,18 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, MapPin, DollarSign, CreditCard, User, ChevronDown } from 'lucide-react';
+import { MapPin, CreditCard } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useRates } from '@/context/RatesContext';
 import { useToast } from '@/hooks/use-toast';
 import ReviewTransaction from './ReviewTransaction';
-import feesData from '@/data/fees.json';
 
 interface SendMoneyForm {
   destinationCountry: string;
   amount: string;
-  currency: string;
+  currency: string; // Will remain 'USD' for sending
   deliveryMethod: string;
   recipientName: string;
   recipientDetails: string;
@@ -32,39 +30,34 @@ const SendMoney: React.FC = () => {
     recipientDetails: '',
     paymentMethod: 'credit-card'
   });
-  
+
   const { getRate } = useRates();
   const { toast } = useToast();
 
   const countries = [
-    { code: 'ZW', name: 'Zimbabwe', currency: 'ZWL' },
     { code: 'ZA', name: 'South Africa', currency: 'ZAR' },
     { code: 'GB', name: 'United Kingdom', currency: 'GBP' },
-    { code: 'KE', name: 'Kenya', currency: 'KES' },
-    { code: 'NG', name: 'Nigeria', currency: 'NGN' },
-    { code: 'GH', name: 'Ghana', currency: 'GHS' }
   ];
 
   const deliveryMethods = [
     { id: 'cash-pickup', name: 'Cash Pickup', description: 'Recipient collects cash from agent location' },
     { id: 'bank-deposit', name: 'Bank Deposit', description: 'Direct deposit to bank account' },
-    { id: 'ecocash', name: 'EcoCash', description: 'Mobile money transfer (Zimbabwe)' },
-    { id: 'mpesa', name: 'M-Pesa', description: 'Mobile money transfer (Kenya)' },
-    { id: 'mobile-money', name: 'Mobile Money', description: 'General mobile money transfer' }
+    { id: 'mobile-money', name: 'Mobile Money', description: 'Mobile money transfer' }
   ];
 
-  const currencies = ['USD', 'EUR', 'ZAR'];
-
-  const calculateFee = (amount: number, currency: string): number => {
-    const feeRate = feesData[currency as keyof typeof feesData] || 0.05;
-    return amount * feeRate;
+  const calculateFee = (amountUSD: number, targetCurrency: string): number => {
+    let feeRate = 0.05;
+    if (targetCurrency === 'GBP') feeRate = 0.1;
+    else if (targetCurrency === 'ZAR') feeRate = 0.2;
+    return Math.ceil(amountUSD * feeRate);
   };
 
-  const calculateReceivedAmount = (amount: number, currency: string, targetCurrency: string): number => {
-    const fee = calculateFee(amount, currency);
-    const amountAfterFee = amount - fee;
-    const exchangeRate = getRate(targetCurrency);
-    return Math.ceil(amountAfterFee * exchangeRate); // Round UP as specified
+  const calculateReceivedAmount = (amountUSD: number, targetCurrency: string): number => {
+    if (amountUSD < 10 || amountUSD > 5000) return 0;
+    const feeUSD = calculateFee(amountUSD, targetCurrency);
+    const rate = getRate(targetCurrency);
+    if (!rate) return 0;
+    return Math.ceil((amountUSD - feeUSD) * rate);
   };
 
   const handleInputChange = (field: keyof SendMoneyForm, value: string) => {
@@ -72,21 +65,18 @@ const SendMoney: React.FC = () => {
   };
 
   const nextStep = () => {
-    if (currentStep < 4) {
-      setCurrentStep(prev => prev + 1);
-    }
+    if (currentStep < 4 && isStepValid(currentStep)) setCurrentStep(prev => prev + 1);
   };
 
   const prevStep = () => {
-    if (currentStep > 1) {
-      setCurrentStep(prev => prev - 1);
-    }
+    if (currentStep > 1) setCurrentStep(prev => prev - 1);
   };
 
   const isStepValid = (step: number): boolean => {
     switch (step) {
       case 1:
-        return !!(formData.destinationCountry && formData.amount && formData.currency);
+        const amountNum = parseFloat(formData.amount) || 0;
+        return !!(formData.destinationCountry && formData.amount && amountNum >= 10 && amountNum <= 5000);
       case 2:
         return !!formData.deliveryMethod;
       case 3:
@@ -99,6 +89,10 @@ const SendMoney: React.FC = () => {
   const renderStep = () => {
     switch (currentStep) {
       case 1:
+        const selectedCountry = countries.find(c => c.code === formData.destinationCountry);
+        const targetCurrency = selectedCountry?.currency || 'USD';
+        const amountNum = parseFloat(formData.amount) || 0;
+
         return (
           <motion.div
             key="step1"
@@ -109,12 +103,11 @@ const SendMoney: React.FC = () => {
           >
             <div>
               <h3 className="text-lg font-semibold mb-4">Where are you sending money?</h3>
-              
               <div className="space-y-4">
                 <div>
                   <Label htmlFor="country">Destination Country</Label>
-                  <Select 
-                    value={formData.destinationCountry} 
+                  <Select
+                    value={formData.destinationCountry}
                     onValueChange={(value) => handleInputChange('destinationCountry', value)}
                   >
                     <SelectTrigger className="w-full">
@@ -133,53 +126,42 @@ const SendMoney: React.FC = () => {
                   </Select>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="amount">Amount</Label>
-                    <Input
-                      id="amount"
-                      type="number"
-                      placeholder="0.00"
-                      value={formData.amount}
-                      onChange={(e) => handleInputChange('amount', e.target.value)}
-                      className="text-lg"
-                    />
-                  </div>
-                  
-                  <div>
-                    <Label htmlFor="currency">Currency</Label>
-                    <Select 
-                      value={formData.currency} 
-                      onValueChange={(value) => handleInputChange('currency', value)}
-                    >
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {currencies.map((currency) => (
-                          <SelectItem key={currency} value={currency}>
-                            {currency}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
+                <div>
+                  <Label htmlFor="amount">Amount (USD)</Label>
+                  <Input
+                    id="amount"
+                    type="number"
+                    placeholder="0.00"
+                    value={formData.amount}
+                    onChange={(e) => handleInputChange('amount', e.target.value)}
+                    className="text-lg"
+                  />
                 </div>
 
-                {formData.amount && (
+                {formData.amount && selectedCountry && (
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     className="p-4 bg-muted/50 rounded-lg"
                   >
-                    <div className="flex justify-between text-sm">
-                      <span>Transfer Fee:</span>
-                      <span>{formData.currency} {calculateFee(parseFloat(formData.amount), formData.currency).toFixed(2)}</span>
-                    </div>
-                    <div className="flex justify-between text-sm text-muted-foreground">
-                      <span>You send:</span>
-                      <span>{formData.currency} {formData.amount}</span>
-                    </div>
+                    {amountNum < 10 || amountNum > 5000 ? (
+                      <div className="text-red-600 text-sm">
+                        Amount must be between $10 and $5,000
+                      </div>
+                    ) : (
+                      <>
+                        <div className="flex justify-between text-sm">
+                          <span>Transfer Fee (USD):</span>
+                          <span>${calculateFee(amountNum, targetCurrency)}</span>
+                        </div>
+                        <div className="flex justify-between text-sm text-muted-foreground">
+                          <span>Recipient Gets:</span>
+                          <span>
+                            {calculateReceivedAmount(amountNum, targetCurrency)} {targetCurrency}
+                          </span>
+                        </div>
+                      </>
+                    )}
                   </motion.div>
                 )}
               </div>
@@ -197,7 +179,6 @@ const SendMoney: React.FC = () => {
             className="space-y-6"
           >
             <h3 className="text-lg font-semibold">How should the recipient receive the money?</h3>
-            
             <div className="space-y-3">
               {deliveryMethods.map((method) => (
                 <div
@@ -236,7 +217,6 @@ const SendMoney: React.FC = () => {
             className="space-y-6"
           >
             <h3 className="text-lg font-semibold">Recipient Details</h3>
-            
             <div className="space-y-4">
               <div>
                 <Label htmlFor="recipientName">Recipient Name</Label>
@@ -247,29 +227,19 @@ const SendMoney: React.FC = () => {
                   onChange={(e) => handleInputChange('recipientName', e.target.value)}
                 />
               </div>
-
               <div>
-                <Label htmlFor="recipientDetails">
-                  {formData.deliveryMethod === 'bank-deposit' ? 'Bank Account Number' :
-                   formData.deliveryMethod === 'ecocash' || formData.deliveryMethod === 'mpesa' || formData.deliveryMethod === 'mobile-money' ? 'Mobile Number' :
-                   'Contact Information'}
-                </Label>
+                <Label htmlFor="recipientDetails">Contact Information</Label>
                 <Input
                   id="recipientDetails"
-                  placeholder={
-                    formData.deliveryMethod === 'bank-deposit' ? 'Enter bank account number' :
-                    formData.deliveryMethod === 'ecocash' || formData.deliveryMethod === 'mpesa' || formData.deliveryMethod === 'mobile-money' ? 'Enter mobile number' :
-                    'Enter contact information'
-                  }
+                  placeholder="Enter account or mobile number"
                   value={formData.recipientDetails}
                   onChange={(e) => handleInputChange('recipientDetails', e.target.value)}
                 />
               </div>
-
               <div>
                 <Label htmlFor="paymentMethod">Payment Method</Label>
-                <Select 
-                  value={formData.paymentMethod} 
+                <Select
+                  value={formData.paymentMethod}
                   onValueChange={(value) => handleInputChange('paymentMethod', value)}
                 >
                   <SelectTrigger>
@@ -290,19 +260,18 @@ const SendMoney: React.FC = () => {
         );
 
       case 4:
-        const selectedCountry = countries.find(c => c.code === formData.destinationCountry);
+        const selected = countries.find(c => c.code === formData.destinationCountry);
         return (
           <ReviewTransaction
             formData={formData}
-            selectedCountry={selectedCountry}
-            calculateFee={calculateFee}
-            calculateReceivedAmount={calculateReceivedAmount}
+            selectedCountry={selected}
+            calculateFee={(amt) => calculateFee(amt, selected?.currency || 'USD')}
+            calculateReceivedAmount={(amt) => calculateReceivedAmount(amt, selected?.currency || 'USD')}
             onConfirm={() => {
               toast({
                 title: "Transfer Initiated!",
-                description: `Your transfer of ${formData.currency} ${formData.amount} to ${formData.recipientName} has been initiated.`,
+                description: `Your transfer of $${formData.amount} USD to ${formData.recipientName} has been initiated.`,
               });
-              // Reset form
               setFormData({
                 destinationCountry: '',
                 amount: '',
@@ -357,26 +326,14 @@ const SendMoney: React.FC = () => {
       </div>
 
       {/* Step Content */}
-      <AnimatePresence mode="wait">
-        {renderStep()}
-      </AnimatePresence>
+      <AnimatePresence mode="wait">{renderStep()}</AnimatePresence>
 
       {/* Navigation Buttons */}
       <div className="flex justify-between pt-6 scroll-smooth">
-        <Button
-          variant="outline"
-          onClick={prevStep}
-          disabled={currentStep === 1}
-          className="scroll-smooth"
-        >
+        <Button variant="outline" onClick={prevStep} disabled={currentStep === 1}>
           Previous
         </Button>
-        
-        <Button
-          onClick={nextStep}
-          disabled={!isStepValid(currentStep)}
-          className="btn-hero scroll-smooth"
-        >
+        <Button onClick={nextStep} disabled={!isStepValid(currentStep)}>
           {currentStep === 4 ? 'Review & Send' : 'Next'}
         </Button>
       </div>
@@ -385,3 +342,4 @@ const SendMoney: React.FC = () => {
 };
 
 export default SendMoney;
+

@@ -89,7 +89,7 @@ const TransactionHistory: React.FC = () => {
             <Button
               variant={filterStatus === '' ? 'default' : 'outline'}
               size="sm"
-              className="bg-[#2CD698] hover:bg-[#27c28c] text-white"
+              className={filterStatus === '' ? 'bg-[#2CD698] hover:bg-[#27c28c] text-white' : ''}
               onClick={() => {
                 setFilterStatus('');
                 setCurrentPage(1);
@@ -100,7 +100,7 @@ const TransactionHistory: React.FC = () => {
             <Button
               variant={filterStatus === 'Completed' ? 'default' : 'outline'}
               size="sm"
-              className="bg-[#2CD698] hover:bg-[#27c28c] text-white"
+              className={filterStatus === 'Completed' ? 'bg-[#2CD698] hover:bg-[#27c28c] text-white' : ''}
               onClick={() => {
                 setFilterStatus('Completed');
                 setCurrentPage(1);
@@ -111,7 +111,7 @@ const TransactionHistory: React.FC = () => {
             <Button
               variant={filterStatus === 'Processing' ? 'default' : 'outline'}
               size="sm"
-              className="bg-[#2CD698] hover:bg-[#27c28c] text-white"
+              className={filterStatus === 'Processing' ? 'bg-[#2CD698] hover:bg-[#27c28c] text-white' : ''}
               onClick={() => {
                 setFilterStatus('Processing');
                 setCurrentPage(1);
