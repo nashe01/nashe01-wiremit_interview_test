@@ -17,6 +17,10 @@ interface SendMoneyForm {
   recipientName: string;
   recipientDetails: string;
   paymentMethod: string;
+  cardNumber?: string;
+  cardExpiry?: string;
+  cardCVV?: string;
+  senderMobile?: string;
 }
 
 const SendMoney: React.FC = () => {
@@ -28,7 +32,11 @@ const SendMoney: React.FC = () => {
     deliveryMethod: '',
     recipientName: '',
     recipientDetails: '',
-    paymentMethod: 'credit-card'
+    paymentMethod: 'credit-card',
+    cardNumber: '',
+    cardExpiry: '',
+    cardCVV: '',
+    senderMobile: '',
   });
 
   const { getRate } = useRates();
@@ -80,7 +88,13 @@ const SendMoney: React.FC = () => {
       case 2:
         return !!formData.deliveryMethod;
       case 3:
-        return !!(formData.recipientName && formData.recipientDetails);
+        if (!formData.recipientName || !formData.recipientDetails) return false;
+        if (formData.paymentMethod === 'credit-card') {
+          return !!(formData.cardNumber && formData.cardExpiry && formData.cardCVV);
+        } else if (formData.paymentMethod === 'mobile-money') {
+          return !!formData.senderMobile;
+        }
+        return true;
       default:
         return true;
     }
@@ -216,7 +230,7 @@ const SendMoney: React.FC = () => {
             exit={{ opacity: 0, x: -20 }}
             className="space-y-6"
           >
-            <h3 className="text-lg font-semibold">Recipient Details</h3>
+            <h3 className="text-lg font-semibold">Recipient & Payment Details</h3>
             <div className="space-y-4">
               <div>
                 <Label htmlFor="recipientName">Recipient Name</Label>
@@ -228,7 +242,7 @@ const SendMoney: React.FC = () => {
                 />
               </div>
               <div>
-                <Label htmlFor="recipientDetails">Contact Information</Label>
+                <Label htmlFor="recipientDetails">Recipient Contact Information</Label>
                 <Input
                   id="recipientDetails"
                   placeholder="Enter account or mobile number"
@@ -236,6 +250,7 @@ const SendMoney: React.FC = () => {
                   onChange={(e) => handleInputChange('recipientDetails', e.target.value)}
                 />
               </div>
+
               <div>
                 <Label htmlFor="paymentMethod">Payment Method</Label>
                 <Select
@@ -252,9 +267,59 @@ const SendMoney: React.FC = () => {
                         <span>Credit/Debit Card</span>
                       </div>
                     </SelectItem>
+                    <SelectItem value="mobile-money">
+                      <div className="flex items-center space-x-2">
+                        <span>📱</span>
+                        <span>Mobile Money</span>
+                      </div>
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
+
+              {formData.paymentMethod === 'credit-card' && (
+                <div className="space-y-2">
+                  <Label htmlFor="cardNumber">Card Number</Label>
+                  <Input
+                    id="cardNumber"
+                    placeholder="1234 5678 9012 3456"
+                    value={formData.cardNumber}
+                    onChange={(e) => handleInputChange('cardNumber', e.target.value)}
+                  />
+                  <div className="flex space-x-2">
+                    <div className="flex-1">
+                      <Label htmlFor="expiry">Expiry</Label>
+                      <Input
+                        id="expiry"
+                        placeholder="MM/YY"
+                        value={formData.cardExpiry}
+                        onChange={(e) => handleInputChange('cardExpiry', e.target.value)}
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <Label htmlFor="cvv">CVV</Label>
+                      <Input
+                        id="cvv"
+                        placeholder="123"
+                        value={formData.cardCVV}
+                        onChange={(e) => handleInputChange('cardCVV', e.target.value)}
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {formData.paymentMethod === 'mobile-money' && (
+                <div>
+                  <Label htmlFor="senderMobile">Sender Mobile Number</Label>
+                  <Input
+                    id="senderMobile"
+                    placeholder="Enter your mobile number"
+                    value={formData.senderMobile}
+                    onChange={(e) => handleInputChange('senderMobile', e.target.value)}
+                  />
+                </div>
+              )}
             </div>
           </motion.div>
         );
@@ -279,7 +344,11 @@ const SendMoney: React.FC = () => {
                 deliveryMethod: '',
                 recipientName: '',
                 recipientDetails: '',
-                paymentMethod: 'credit-card'
+                paymentMethod: 'credit-card',
+                cardNumber: '',
+                cardExpiry: '',
+                cardCVV: '',
+                senderMobile: '',
               });
               setCurrentStep(1);
             }}
