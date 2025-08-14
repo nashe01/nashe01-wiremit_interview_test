@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "image": "/ads/ad1.jpg", 
+    "text": "Send money worldwide in seconds!",
+    "subtitle": "Fast, secure, and reliable transfers to over 200 countries"
+  },
+  {
+    "id": 2,
+    "image": "/ads/ad2.jpg",
+    "text": "Low fees for students abroad", 
+    "subtitle": "Special rates for education expenses and student support"
+  },
+  {
+    "id": 3,
+    "image": "/ads/ad3.jpg",
+    "text": "24/7 customer support",
+    "subtitle": "Get help whenever you need it with our round-the-clock service"
+  }
+]
