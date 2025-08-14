@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 import SendMoney from '@/components/SendMoney';
 import TransactionHistory from '@/components/TransactionHistory';
 import AdsCarousel from '@/components/AdsCarousel';
-
 import { useRates } from '@/context/RatesContext';
 
 const Dashboard: React.FC = () => {
@@ -86,14 +85,13 @@ const Dashboard: React.FC = () => {
             >
               <div className="flex items-center space-x-2 mb-4">
                 <Send className="w-5 h-5 text-primary" />
-                <h2 className="text-xl font-semibold">Send Money</h2>
+                <h2 className="text-xl font-semibold" style={{ color: '#49D3A3' }}>Send Money</h2>
               </div>
               <SendMoney />
             </motion.section>
 
             {/* Divider */}
             <div className="relative flex items-center justify-center my-8">
-              
               <span className="bg-background px-4 text-muted-foreground text-sm font-medium">
                 Your past activity
               </span>
@@ -108,7 +106,7 @@ const Dashboard: React.FC = () => {
             >
               <div className="flex items-center space-x-2 mb-4">
                 <History className="w-5 h-5 text-primary" />
-                <h2 className="text-xl font-semibold">Transaction History</h2>
+                <h2 className="text-xl font-semibold" style={{ color: '#49D3A3' }}>Transaction History</h2>
               </div>
               <TransactionHistory />
             </motion.section>
@@ -132,7 +130,7 @@ const Dashboard: React.FC = () => {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="card-elevated"
             >
-              <h3 className="text-lg font-semibold mb-4">Quick Stats</h3>
+              <h3 className="text-lg font-semibold mb-4" style={{ color: '#49D3A3' }}>Quick Stats</h3>
               <div className="space-y-3">
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Total Sent:</span>
@@ -151,9 +149,9 @@ const Dashboard: React.FC = () => {
           </div>
         </div>
       </main>
-      
     </div>
   );
 };
 
 export default Dashboard;
+
