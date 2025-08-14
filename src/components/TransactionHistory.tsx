@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Search, Filter, Calendar, Eye, Download } from 'lucide-react';
+import { Search, Filter, Calendar, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -25,21 +25,20 @@ const TransactionHistory: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState('');
-  const transactionsPerPage = 5;
+  const transactionsPerPage = 3;
 
-  // Filter transactions based on search term and status
   const filteredTransactions = transactions.filter(transaction => {
-    const matchesSearch = searchTerm === '' || 
+    const matchesSearch =
+      searchTerm === '' ||
       transaction.recipientName.toLowerCase().includes(searchTerm.toLowerCase()) ||
       transaction.recipientCountry.toLowerCase().includes(searchTerm.toLowerCase()) ||
       transaction.trackingRef.toLowerCase().includes(searchTerm.toLowerCase());
-    
+
     const matchesStatus = filterStatus === '' || transaction.status === filterStatus;
-    
+
     return matchesSearch && matchesStatus;
   });
 
-  // Calculate pagination
   const totalPages = Math.ceil(filteredTransactions.length / transactionsPerPage);
   const startIndex = (currentPage - 1) * transactionsPerPage;
   const endIndex = startIndex + transactionsPerPage;
@@ -69,10 +68,8 @@ const TransactionHistory: React.FC = () => {
   return (
     <Card className="w-full scroll-smooth">
       <CardHeader className="scroll-smooth">
-        <CardTitle className="flex items-center space-x-2">
-          
-        </CardTitle>
-        
+        <CardTitle className="flex items-center space-x-2"></CardTitle>
+
         {/* Search and Filter */}
         <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mt-4 scroll-smooth">
           <div className="relative flex-1">
@@ -82,12 +79,12 @@ const TransactionHistory: React.FC = () => {
               value={searchTerm}
               onChange={(e) => {
                 setSearchTerm(e.target.value);
-                setCurrentPage(1); // Reset to first page when searching
+                setCurrentPage(1);
               }}
               className="pl-10"
             />
           </div>
-          
+
           <div className="flex space-x-2">
             <Button
               variant={filterStatus === '' ? 'default' : 'outline'}
@@ -153,20 +150,16 @@ const TransactionHistory: React.FC = () => {
                       Ref: {transaction.trackingRef}
                     </p>
                   </div>
-                  
+
                   <div className="flex items-center justify-between sm:flex-col sm:items-end sm:space-y-2">
                     <div className="text-right">
                       <p className="font-semibold">
                         {transaction.currency} {transaction.amount.toFixed(2)}
                       </p>
                     </div>
-                    
+
                     <div className="flex items-center space-x-2">
-                      <Button variant="outline" size="sm">
-                        <Eye className="w-4 h-4 mr-1" />
-                        View
-                      </Button>
-                      <Button variant="outline" size="sm">
+                      <Button variant="default" size="sm" className="bg-green-600 hover:bg-green-700 text-white">
                         <Download className="w-4 h-4 mr-1" />
                         Receipt
                       </Button>

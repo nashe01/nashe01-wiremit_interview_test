@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import SendMoney from '@/components/SendMoney';
 import TransactionHistory from '@/components/TransactionHistory';
 import AdsCarousel from '@/components/AdsCarousel';
+
 import { useRates } from '@/context/RatesContext';
 
 const Dashboard: React.FC = () => {
@@ -150,6 +151,7 @@ const Dashboard: React.FC = () => {
           </div>
         </div>
       </main>
+      
     </div>
   );
 };
