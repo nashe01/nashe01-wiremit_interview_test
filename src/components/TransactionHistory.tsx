@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Search, Filter, Calendar, Download } from 'lucide-react';
+import { Search, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -73,7 +73,7 @@ const TransactionHistory: React.FC = () => {
         {/* Search and Filter */}
         <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mt-4 scroll-smooth">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-3 w-4 h-4 text-muted-foreground" />
+            <Search className="absolute left-3 top-3 w-4 h-4 text-green-600" />
             <Input
               placeholder="Search by recipient, country, or tracking reference..."
               value={searchTerm}
@@ -89,6 +89,7 @@ const TransactionHistory: React.FC = () => {
             <Button
               variant={filterStatus === '' ? 'default' : 'outline'}
               size="sm"
+              className="bg-[#2CD698] hover:bg-[#27c28c] text-white"
               onClick={() => {
                 setFilterStatus('');
                 setCurrentPage(1);
@@ -99,6 +100,7 @@ const TransactionHistory: React.FC = () => {
             <Button
               variant={filterStatus === 'Completed' ? 'default' : 'outline'}
               size="sm"
+              className="bg-[#2CD698] hover:bg-[#27c28c] text-white"
               onClick={() => {
                 setFilterStatus('Completed');
                 setCurrentPage(1);
@@ -109,6 +111,7 @@ const TransactionHistory: React.FC = () => {
             <Button
               variant={filterStatus === 'Processing' ? 'default' : 'outline'}
               size="sm"
+              className="bg-[#2CD698] hover:bg-[#27c28c] text-white"
               onClick={() => {
                 setFilterStatus('Processing');
                 setCurrentPage(1);
@@ -153,13 +156,15 @@ const TransactionHistory: React.FC = () => {
 
                   <div className="flex items-center justify-between sm:flex-col sm:items-end sm:space-y-2">
                     <div className="text-right">
-                      <p className="font-semibold">
-                        {transaction.currency} {transaction.amount.toFixed(2)}
-                      </p>
+                      <p className="font-semibold">{transaction.currency} {transaction.amount.toFixed(2)}</p>
                     </div>
 
                     <div className="flex items-center space-x-2">
-                      <Button variant="default" size="sm" className="bg-green-600 hover:bg-green-700 text-white">
+                      <Button
+                        variant="default"
+                        size="sm"
+                        className="bg-[#2CD698] hover:bg-[#27c28c] text-white"
+                      >
                         <Download className="w-4 h-4 mr-1" />
                         Receipt
                       </Button>

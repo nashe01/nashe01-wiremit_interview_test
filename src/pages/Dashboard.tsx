@@ -71,8 +71,9 @@ const Dashboard: React.FC = () => {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 scroll-smooth">
+
+        {/* Dashboard Grid */}
         <div className="grid lg:grid-cols-4 gap-8">
-          
           {/* Main Dashboard */}
           <div className="lg:col-span-3 space-y-8 scroll-smooth">
             
@@ -85,30 +86,9 @@ const Dashboard: React.FC = () => {
             >
               <div className="flex items-center space-x-2 mb-4">
                 <Send className="w-5 h-5 text-primary" />
-                <h2 className="text-xl font-semibold" style={{ color: '#49D3A3' }}>Send Money</h2>
+                <h2 className="text-xl font-semibold" style={{ color: '#2CD698' }}>Send Money</h2>
               </div>
               <SendMoney />
-            </motion.section>
-
-            {/* Divider */}
-            <div className="relative flex items-center justify-center my-8">
-              <span className="bg-background px-4 text-muted-foreground text-sm font-medium">
-                Your past activity
-              </span>
-            </div>
-
-            {/* Transaction History Section */}
-            <motion.section
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="space-y-6 p-6 bg-card rounded-xl shadow-sm border border-border"
-            >
-              <div className="flex items-center space-x-2 mb-4">
-                <History className="w-5 h-5 text-primary" />
-                <h2 className="text-xl font-semibold" style={{ color: '#49D3A3' }}>Transaction History</h2>
-              </div>
-              <TransactionHistory />
             </motion.section>
 
           </div>
@@ -130,7 +110,7 @@ const Dashboard: React.FC = () => {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="card-elevated"
             >
-              <h3 className="text-lg font-semibold mb-4" style={{ color: '#49D3A3' }}>Quick Stats</h3>
+              <h3 className="text-lg font-semibold mb-4" style={{ color: '#2CD698' }}>Quick Stats</h3>
               <div className="space-y-3">
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Total Sent:</span>
@@ -148,10 +128,31 @@ const Dashboard: React.FC = () => {
             </motion.div>
           </div>
         </div>
+
+        {/* Divider */}
+        <div className="relative flex items-center justify-center my-8">
+          <span className="bg-background px-4 text-muted-foreground text-sm font-medium">
+            Your past activity
+          </span>
+        </div>
+
+        {/* Full-Width Transaction History Section */}
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="space-y-6 p-6 bg-card rounded-xl shadow-sm border border-border max-w-full mx-auto"
+        >
+          <div className="flex items-center space-x-2 mb-4">
+            <History className="w-5 h-5 text-primary" />
+            <h2 className="text-xl font-semibold" style={{ color: '#2CD698' }}>Transaction History</h2>
+          </div>
+          <TransactionHistory />
+        </motion.section>
+
       </main>
     </div>
   );
 };
 
 export default Dashboard;
-
