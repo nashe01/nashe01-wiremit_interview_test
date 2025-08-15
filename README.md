@@ -1,4 +1,4 @@
-# 💰 Pocket Sparkle Flow
+# 💰 wiremit-interview-test
 
 A modern, responsive fintech web application built with React, TypeScript, and Tailwind CSS. Experience seamless money transfers, transaction management, and financial services with an intuitive user interface.
 
