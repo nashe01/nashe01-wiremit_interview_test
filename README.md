@@ -31,7 +31,6 @@ A modern, responsive fintech web application built with React, TypeScript, and T
 - **Brand Recognition**: Aligns with major financial institutions and fintech companies
 - **Psychological Impact**: Promotes feelings of calm, balance, and prosperity
 
-![Green Theme Showcase](docs/images/green-theme-showcase.png)
 
 ### 🌓 Light & Dark Mode
 
@@ -47,7 +46,10 @@ A modern, responsive fintech web application built with React, TypeScript, and T
 - **Professional Flexibility**: Accommodates different work environments and lighting conditions
 - **Modern Standard**: Expected feature in contemporary web applications
 
-![Theme Toggle Demo](docs/images/theme-toggle-demo.png)
+<div style="display: flex; gap: 20px; justify-content: center; margin: 20px 0;">
+  <img src="src/assets/presentation/lightmode.png" alt="Light Mode" style="width: 45%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" />
+  <img src="src/assets/presentation/darkmode.png" alt="Dark Mode" style="width: 45%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" />
+</div>
 
 ### 🔐 Local Storage Authentication
 
@@ -63,7 +65,10 @@ A modern, responsive fintech web application built with React, TypeScript, and T
 - **Demo-Friendly**: Perfect for showcasing UI/UX without backend setup
 - **Development Efficiency**: Focus on frontend features rather than authentication infrastructure
 
-![Authentication Flow](docs/images/auth-flow-demo.png)
+<div style="display: flex; gap: 20px; justify-content: center; margin: 20px 0;">
+  <img src="src/assets/presentation/sign in.png" alt="Sign In Form" style="width: 45%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" />
+  <img src="src/assets/presentation/signup.png" alt="Sign Up Form" style="width: 45%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" />
+</div>
 
 ### 📱 Strategic Ad Placement
 
@@ -79,7 +84,7 @@ A modern, responsive fintech web application built with React, TypeScript, and T
 - **Revenue Optimization**: Strategic placement for better engagement rates
 - **User Satisfaction**: Maintains clean, uncluttered interface
 
-![Ad Placement Strategy](docs/images/ad-placement-demo.png)
+<img src="src/assets/presentation/sendmoney.png" alt="Send Money Interface with Ad Placement" style="width: 100%; max-width: 800px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin: 20px auto; display: block;" />
 
 ### 📱 Responsive Design
 
@@ -95,7 +100,10 @@ A modern, responsive fintech web application built with React, TypeScript, and T
 - **Touch Gestures**: Swipeable carousels and intuitive mobile interactions
 - **Adaptive Typography**: Font sizes that scale appropriately across devices
 
-![Responsive Design Demo](docs/images/responsive-design-demo.png)
+<div style="display: flex; gap: 20px; justify-content: center; margin: 20px 0;">
+  <img src="src/assets/presentation/mobilelight.jpg" alt="Mobile Light Mode" style="width: 45%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" />
+  <img src="src/assets/presentation/mobiledark.jpg" alt="Mobile Dark Mode" style="width: 45%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" />
+</div>
 
 ## 🏗️ Project Structure
 
@@ -201,6 +209,10 @@ bun run build
 - **📈 Real-time Rates**: Dynamic exchange rate calculations
 - **🎪 Ad Integration**: Strategic advertisement placement
 - **⚡ Performance**: Optimized with Vite and modern React patterns
+
+### 📊 Transaction Management Showcase
+
+<img src="src/assets/presentation/transaction history.png" alt="Transaction History Interface" style="width: 100%; max-width: 800px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin: 20px auto; display: block;" />
 
 
 ## 📄 License
