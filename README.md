@@ -20,47 +20,6 @@ A modern, responsive fintech web application built with React, TypeScript, and T
 
 ## 🎨 Design & Development Decisions
 
-## ✅ Requirements Coverage
-
-### 1. Account Creation (Mock)
-- **Sign-up fields**: First name, middle name (optional), last name, email, password, confirm password.
-- **Storage choice**: Credentials are stored in `localStorage` under `users`; the active session is stored as `currentUser` (without the password). This is intentional for a mock-only demo to avoid backend complexity and enable quick testing. In a production system we would hash passwords and store them securely server-side.
-- **Justification for demo**: Fast iteration, offline-ready, no backend dependency, keeps focus on UI/UX and flows needed for the challenge. Clear security caveats are documented below.
-
-### 2. Login (Mock)
-- **Login flow**: Users log in with the email and password created during sign-up.
-- **Multiple accounts**: Supported. We persist an array of users in `localStorage` and match by `email + password`.
-
-### 3. Dashboard
-- **Send Money**:
-  - Input in USD with limits: minimum $10, maximum $5,000.
-  - Fees: **10% for GBP**, **20% for ZAR**. The fee logic is centralized and easy to extend for new currencies or payment methods.
-  - FX conversion uses the latest fetched rate; the recipient’s amount is calculated after deducting the fee.
-  - **Rounding policy**: We round UP (ceil) where applicable to avoid underpaying recipients and to keep totals conservative and predictable.
-  - Note on fees: The design allows different fee rules per currency or payment method. For this demo GBP and ZAR are implemented per requirements; others fall back to a default.
-- **Ads Banner & Carousel**:
-  - Desktop: full-width banner placed above the "Send Money" section with subtle left/right side-fade overlays.
-  - Behavior: auto-plays every 6s, outgoing slide fades out smoothly (no pop-in scale), manual arrows and dot indicators, pauses on hover.
-- **Mock Transaction History**: 15+ sample transactions with pagination and basic filtering.
-
-### 4. FX Rates API
-- **Endpoint**: `GET https://68976304250b078c2041c7fc.mockapi.io/api/wiremit/InterviewAPIS`
-- **Sample response**:
-```json
-[
-  { "USD": 1 },
-  { "GBP": 0.74 },
-  { "ZAR": 17.75 },
-  { "USDT": 1 }
-]
-```
-- **Normalization decision**: We normalize the API’s non-flat response into an internal structure and keep only the currencies we need (GBP, ZAR for this assignment). If the API returns an array of single-key objects, we flatten it to a dictionary first, then pick the relevant keys and store them as `{ currency, rate, symbol }` items. This keeps calculations simple and extensible.
-
-### 5. Design Thinking Presentation
-- **Interpreting unclear requirements**: Documented assumptions on fee rules, supported countries (UK/GBP, South Africa/ZAR), rounding-up policy, and mock storage.
-- **Component structure & data flow**: Context-driven data (Auth, Rates), page-level composition (Dashboard), presentational components (Send Money, Ads, History) with explicit props and derived state.
-- **Scaling**: Add more countries by extending rates + fee table; UI scales via responsive layout and shadcn/ui primitives; business rules centralised for currency-specific behaviour.
-
 ## 🔎 Areas of Interest
 
 ### 1. Security Considerations
