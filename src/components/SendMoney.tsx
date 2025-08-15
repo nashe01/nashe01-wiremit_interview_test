@@ -357,10 +357,12 @@ const SendMoney: React.FC = () => {
       <AnimatePresence mode="wait">{renderStep()}</AnimatePresence>
 
       {/* Navigation Buttons */}
-      <div className="flex justify-between pt-6 scroll-smooth">
-        <Button variant="outline" onClick={prevStep} disabled={currentStep === 1}>Previous</Button>
-        <Button onClick={nextStep} disabled={!isStepValid(currentStep)}>{currentStep === 3 ? 'Review & Send' : 'Next'}</Button>
-      </div>
+      {currentStep !== 3 && (
+        <div className="flex justify-between pt-6 scroll-smooth">
+          <Button variant="outline" onClick={prevStep} disabled={currentStep === 1}>Previous</Button>
+          <Button onClick={nextStep} disabled={!isStepValid(currentStep)}>Next</Button>
+        </div>
+      )}
 
       {/* Transaction Status Modal */}
       <TransactionStatusModal
