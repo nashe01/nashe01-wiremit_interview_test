@@ -3,18 +3,14 @@ import { useTheme } from '@/context/ThemeContext';
 import { Badge } from '@/components/ui/badge';
 
 const ThemeStatus: React.FC = () => {
-  const { theme, resolvedTheme } = useTheme();
+  const { theme } = useTheme();
 
   const getThemeColor = () => {
-    if (theme === 'system') return 'bg-blue-500';
-    if (theme === 'dark') return 'bg-gray-700';
-    return 'bg-yellow-500';
+    return theme === 'dark' ? 'bg-gray-700' : 'bg-yellow-500';
   };
 
   const getThemeText = () => {
-    if (theme === 'system') return 'System';
-    if (theme === 'dark') return 'Dark';
-    return 'Light';
+    return theme === 'dark' ? 'Dark' : 'Light';
   };
 
   return (
@@ -25,11 +21,6 @@ const ThemeStatus: React.FC = () => {
         className={`${getThemeColor()} text-white text-xs px-2 py-1`}
       >
         {getThemeText()}
-        {theme === 'system' && (
-          <span className="ml-1 text-xs opacity-75">
-            ({resolvedTheme})
-          </span>
-        )}
       </Badge>
     </div>
   );

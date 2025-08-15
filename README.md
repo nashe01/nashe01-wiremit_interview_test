@@ -15,8 +15,7 @@ A modern, responsive money transfer application built with React, TypeScript, an
 
 The app includes comprehensive dark mode support:
 
-- **Theme Toggle**: Click the theme button (sun/moon/monitor icon) in the navbar or dashboard header
-- **System Preference**: Automatically detects and follows your system's dark/light mode preference
+- **Theme Toggle**: Click the theme button (sun/moon icon) in the navbar or dashboard header
 - **Persistent**: Your theme choice is saved in localStorage
 - **Smooth Transitions**: All theme changes include smooth animations and transitions
 
@@ -24,7 +23,6 @@ The app includes comprehensive dark mode support:
 
 - **Light**: Classic light theme with white backgrounds
 - **Dark**: Dark theme with dark backgrounds and light text
-- **System**: Automatically follows your operating system's theme preference
 
 ### Usage
 
