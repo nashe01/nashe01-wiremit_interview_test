@@ -18,27 +18,7 @@ A modern, responsive fintech web application built with React, TypeScript, and T
 ![React Hook Form](https://img.shields.io/badge/React_Hook_Form-7.61.1-EC5990?style=for-the-badge&logo=reacthookform)
 ![Zod](https://img.shields.io/badge/Zod-3.25.76-3B82F6?style=for-the-badge&logo=zod)
 
-## 🎨 Design & Development Decisions
-
-## 🔎 Areas of Interest
-
-### 1. Security Considerations
-- **Credentials storage (demo)**: Stored in `localStorage` for the mock. Passwords are not hashed because there is no backend—this would be unacceptable in production.
-- **XSS**: No `dangerouslySetInnerHTML`; input is handled by controlled components; no third-party HTML injection.
-- **CSRF**: Not applicable here (no authenticated server mutations). In production, we would use same-site cookies/CSRF tokens.
-
-### 2. Mobile Responsiveness
-- **Approach**: Mobile-first with Tailwind breakpoints; layouts adapt from single column to multi-column. Touch targets and carousel controls are optimised for mobile.
-
-### 3. UI/UX
-- **Navigation**: Clear multi-step flow for sending money; review step isolates “Edit Details” and “Confirm & Send”.
-- **Feedback**: Toasts, loading states, and a transaction status modal provide clear progress and completion feedback.
-- **Accessibility**: Labels on inputs, keyboard-focusable controls, color contrast via theme tokens.
-
-### 4. Input Validation
-- **Required fields**: Enforced in sign-up, sign-in, and send money steps.
-- **Numeric ranges**: Send amount validated with min ($10) and max ($5,000); card fields validated (Luhn for card, expiry, CVV) and phone numbers validated by library.
-- **Invalid input prevention**: Controlled inputs, schema-driven validation patterns, and user-friendly error messages.
+## 🎨 Design & Development Decisions.
 
 ### 🌿 Colour Choice: Green Theme
 
