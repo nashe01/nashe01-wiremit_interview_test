@@ -41,7 +41,7 @@ const Dashboard: React.FC = () => {
               <div>
                 <h1 className="text-lg font-semibold gradient-text">WireMit</h1>
                 <p className="text-sm text-muted-foreground">
-                  Welcome back, {user?.firstName}!
+                  Welcome to WireMit, {user?.firstName}!
                 </p>
               </div>
             </div>
@@ -73,7 +73,7 @@ const Dashboard: React.FC = () => {
         {/* Dashboard Grid */}
         <div className="grid lg:grid-cols-4 gap-8">
           {/* Main Dashboard */}
-          <div className="lg:col-span-3 space-y-8 scroll-smooth">
+          <div className="lg:col-span-3 space-y-8 scroll-smooth order-2 lg:order-1">
             
             {/* Send Money Section */}
             <motion.section
@@ -91,7 +91,7 @@ const Dashboard: React.FC = () => {
           </div>
 
           {/* Sidebar */}
-          <div className="lg:col-span-1 space-y-6">
+          <div className="lg:col-span-1 space-y-6 order-1 lg:order-2">
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}

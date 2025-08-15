@@ -56,12 +56,56 @@ const LandingPage: React.FC = () => {
       <main className="pt-20 scroll-smooth">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[80vh]">
-            {/* Left Content */}
+            {/* Cards Section - First on Mobile */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              className="relative h-[500px] flex items-center justify-center order-2 lg:order-2"
+            >
+              {cardImages.map((image, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ 
+                    opacity: 0,
+                    rotateY: index * 30,
+                    rotateX: 10,
+                    z: -index * 50
+                  }}
+                  animate={{ 
+                    opacity: 1,
+                    rotateY: index * 30,
+                    rotateX: 10,
+                    z: -index * 50
+                  }}
+                  transition={{ 
+                    delay: 0.2 * index,
+                    duration: 0.8,
+                    type: "spring",
+                    stiffness: 100
+                  }}
+                  className="absolute w-80 h-60 rounded-2xl overflow-hidden shadow-elegant card-elevated hover:scale-105 transition-transform duration-500"
+                  style={{
+                    transformStyle: 'preserve-3d',
+                    transform: `rotateY(${index * 15}deg) rotateX(10deg) translateZ(${-index * 30}px)`
+                  }}
+                >
+                  <img
+                    src={image}
+                    alt={`Feature card ${index + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent" />
+                </motion.div>
+              ))}
+            </motion.div>
+
+            {/* Content Section - Second on Mobile */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              className="space-y-8 scroll-smooth"
+              className="space-y-8 scroll-smooth order-1 lg:order-1"
             >
               <div className="space-y-4">
                 <motion.h1
@@ -116,50 +160,6 @@ const LandingPage: React.FC = () => {
                   </div>
                 ))}
               </motion.div>
-            </motion.div>
-
-            {/* Right Content - Rotating Cards */}
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              className="relative h-[500px] flex items-center justify-center"
-            >
-              {cardImages.map((image, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ 
-                    opacity: 0,
-                    rotateY: index * 30,
-                    rotateX: 10,
-                    z: -index * 50
-                  }}
-                  animate={{ 
-                    opacity: 1,
-                    rotateY: index * 30,
-                    rotateX: 10,
-                    z: -index * 50
-                  }}
-                  transition={{ 
-                    delay: 0.2 * index,
-                    duration: 0.8,
-                    type: "spring",
-                    stiffness: 100
-                  }}
-                  className="absolute w-80 h-60 rounded-2xl overflow-hidden shadow-elegant card-elevated hover:scale-105 transition-transform duration-500"
-                  style={{
-                    transformStyle: 'preserve-3d',
-                    transform: `rotateY(${index * 15}deg) rotateX(10deg) translateZ(${-index * 30}px)`
-                  }}
-                >
-                  <img
-                    src={image}
-                    alt={`Feature card ${index + 1}`}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent" />
-                </motion.div>
-              ))}
             </motion.div>
           </div>
         </div>

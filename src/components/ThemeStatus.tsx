@@ -6,7 +6,7 @@ const ThemeStatus: React.FC = () => {
   const { theme } = useTheme();
 
   const getThemeColor = () => {
-    return theme === 'dark' ? 'bg-gray-700' : 'bg-yellow-500';
+    return theme === 'dark' ? 'bg-gray-700' : 'bg-[#2CD698]';
   };
 
   const getThemeText = () => {
