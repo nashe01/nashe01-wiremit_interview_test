@@ -70,17 +70,25 @@ A modern, responsive fintech web application built with React, TypeScript, and T
 
 ### 📱 Strategic Ad Placement
 
-**Right-Side Advertisement Strategy:**
-- **Non-Intrusive Design**: Ads positioned to avoid interfering with core functionality
-- **User Experience Priority**: Main content remains the primary focus
-- **Responsive Layout**: Ads adapt to different screen sizes seamlessly
-- **Performance Optimized**: Lazy loading and efficient rendering
+**Multi-Device Advertisement Strategy:**
+- **Desktop Banner Design**: Full-width hero banner positioned above the "Send Money" section for maximum visibility and engagement
+- **Mobile/Tablet Sidebar**: Compact ad card in the right sidebar area to maintain content hierarchy
+- **Non-Intrusive Design**: Ads positioned strategically to avoid interfering with core functionality
+- **User Experience Priority**: Main content remains the primary focus across all devices
+- **Responsive Layout**: Ads adapt seamlessly between banner and sidebar layouts
+- **Performance Optimized**: Lazy loading and efficient rendering with smooth transitions
 
-**Why Right Side?**
-- **Reading Pattern**: Users typically scan left-to-right, top-to-bottom
-- **Content Focus**: Main features remain in the primary viewing area
-- **Revenue Optimisation**: Strategic placement for better engagement rates
-- **User Satisfaction**: Maintains clean, uncluttered interface
+**Why This Multi-Device Approach?**
+- **Desktop Banner**: 
+  - **Hero Positioning**: Above-the-fold placement captures immediate attention
+  - **Full-Width Impact**: Maximum visual impact for premium advertising space
+  - **Content Flow**: Natural progression from ads to action (Send Money)
+  - **Revenue Optimization**: Premium banner placement commands higher engagement rates
+- **Mobile/Tablet Sidebar**:
+  - **Reading Pattern**: Users scan left-to-right, keeping main content in primary viewing area
+  - **Space Efficiency**: Compact sidebar placement maximizes content-to-ad ratio
+  - **Touch-Friendly**: Optimized for mobile interaction patterns
+  - **User Satisfaction**: Maintains clean, uncluttered interface on smaller screens
 
 <img src="src/assets/presentation/sendmoney.png" alt="Send Money Interface with Ad Placement" style="width: 100%; max-width: 800px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin: 20px auto; display: block;" />
 
