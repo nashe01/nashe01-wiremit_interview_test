@@ -62,7 +62,7 @@ const AdsCarousel: React.FC<AdsCarouselProps> = ({ variant = 'sidebar' }) => {
   const heightClass = isBanner ? 'h-64 lg:h-80' : 'h-64';
   const titleClass = isBanner ? 'text-2xl lg:text-3xl font-semibold mb-2' : 'text-lg font-semibold mb-2';
   const subtitleClass = isBanner ? 'text-base lg:text-lg text-white/85' : 'text-sm text-white/80';
-  const imageClass = isBanner ? 'w-full h-full object-contain p-2 sm:p-3' : 'w-full h-full object-cover';
+  const imageClass = isBanner ? 'w-full h-full object-contain p-2 sm:p-3' : 'w-full h-full object-contain p-1 sm:p-2';
 
   return (
     <Card className={`w-full overflow-hidden scroll-smooth ${isBanner ? 'ring-1 ring-black/5 dark:ring-white/10' : ''}`}>
