@@ -8,6 +8,8 @@ import SendMoney from '@/components/SendMoney';
 import TransactionHistory from '@/components/TransactionHistory';
 import AdsCarousel from '@/components/AdsCarousel';
 import Footer from '@/components/Footer';
+import ThemeToggle from '@/components/ThemeToggle';
+import ThemeStatus from '@/components/ThemeStatus';
 import { useRates } from '@/context/RatesContext';
 
 const Dashboard: React.FC = () => {
@@ -21,12 +23,12 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-100 via-gray-50 to-gray-100 scroll-smooth">
+    <div className="min-h-screen bg-gradient-to-b from-gray-100 via-gray-50 to-gray-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 scroll-smooth">
       {/* Header */}
       <motion.header
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="border-b border-border bg-white/80 backdrop-blur-md sticky top-0 z-40"
+        className="border-b border-border bg-white/80 dark:bg-gray-900/80 backdrop-blur-md sticky top-0 z-40"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
@@ -45,6 +47,12 @@ const Dashboard: React.FC = () => {
             </div>
 
             <div className="flex items-center space-x-4">
+              {/* Theme Status */}
+              <ThemeStatus />
+              
+              {/* Theme Toggle */}
+              <ThemeToggle />
+              
               {/* Logout button */}
               <Button 
                 variant="outline" 
@@ -72,7 +80,7 @@ const Dashboard: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="space-y-6 p-6 bg-white/20 backdrop-blur-md rounded-xl shadow-lg border border-white/30"
+              className="dashboard-glass rounded-xl shadow-lg p-6"
             >
               <div className="flex items-center space-x-2 mb-4">
                 <Send className="w-5 h-5 text-[#2CD698]" />
@@ -88,7 +96,7 @@ const Dashboard: React.FC = () => {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="p-4 bg-white/20 backdrop-blur-md rounded-xl shadow-lg border border-white/30"
+              className="dashboard-glass rounded-xl shadow-lg p-4"
             >
               <AdsCarousel />
             </motion.div>
@@ -98,7 +106,7 @@ const Dashboard: React.FC = () => {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="p-6 bg-white/20 backdrop-blur-md rounded-xl shadow-lg border border-white/30"
+              className="dashboard-glass rounded-xl shadow-lg p-6"
             >
               <h3 className="text-lg font-semibold mb-4 text-[#2CD698]">Quick Stats</h3>
               <div className="space-y-3">
@@ -131,7 +139,7 @@ const Dashboard: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="space-y-6 p-6 bg-white/20 backdrop-blur-md rounded-xl shadow-lg border border-white/30 max-w-full mx-auto"
+          className="dashboard-glass rounded-xl shadow-lg max-w-full mx-auto p-6"
         >
           <div className="flex items-center space-x-2 mb-4">
             <History className="w-5 h-5 text-[#2CD698]" />

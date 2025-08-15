@@ -68,7 +68,7 @@ const LandingPage: React.FC = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2, duration: 0.6 }}
-                  className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight"
+                  className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-foreground"
                 >
                   One app, all things{' '}
                   <span className="gradient-text">money</span>
@@ -106,11 +106,11 @@ const LandingPage: React.FC = () => {
               >
                 {features.map((feature, index) => (
                   <div key={index} className="flex items-start space-x-3">
-                    <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
+                    <div className="w-8 h-8 bg-primary/10 dark:bg-primary/20 rounded-lg flex items-center justify-center">
                       <feature.icon className="w-4 h-4 text-primary" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-sm">{feature.title}</h3>
+                      <h3 className="font-semibold text-sm text-foreground">{feature.title}</h3>
                       <p className="text-xs text-muted-foreground">{feature.description}</p>
                     </div>
                   </div>

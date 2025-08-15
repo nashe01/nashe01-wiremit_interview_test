@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Menu } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import ThemeToggle from './ThemeToggle';
 
 const Navbar: React.FC = () => {
   return (
@@ -22,13 +23,15 @@ const Navbar: React.FC = () => {
             <span className="text-xl font-bold gradient-text">WireMit</span>
           </div>
           
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-4">
+            <ThemeToggle />
             <Button variant="outline" className="hidden sm:flex">
               Sign In
             </Button>
           </div>
           
-          <div className="md:hidden">
+          <div className="md:hidden flex items-center space-x-2">
+            <ThemeToggle />
             <Button variant="ghost" size="icon">
               <Menu className="w-5 h-5" />
             </Button>
