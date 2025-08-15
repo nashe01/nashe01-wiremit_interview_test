@@ -265,10 +265,9 @@ bun run build
 - **Date Fields**: Date picker with range validation
 - **Required Field Indicators**: Visual cues for mandatory inputs
 
-<div style="display: flex; gap: 20px; justify-content: center; margin: 20px 0;">
-  <img src="src/assets/validations/blank inputs.png" alt="Blank Input Validation" style="width: 45%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" />
-  <img src="src/assets/validations/invalid input format.png" alt="Invalid Input Format Validation" style="width: 45%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" />
-</div>
+<img src="src/assets/validations/blank inputs.png" alt="Blank Input Validation" style="width: 100%; max-width: 800px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin: 20px auto; display: block;" />
+
+<img src="src/assets/validations/invalid input format.png" alt="Invalid Input Format Validation" style="width: 100%; max-width: 800px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin: 20px auto; display: block;" />
 
 ### 🛡️ Data Security Validations
 
