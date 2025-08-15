@@ -95,9 +95,6 @@ const LandingPage: React.FC = () => {
                   Get Started
                   <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
-                <Button variant="outline" className="btn-secondary">
-                  Learn More
-                </Button>
               </motion.div>
 
               {/* Features */}

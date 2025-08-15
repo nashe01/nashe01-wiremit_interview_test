@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import SendMoney from '@/components/SendMoney';
 import TransactionHistory from '@/components/TransactionHistory';
 import AdsCarousel from '@/components/AdsCarousel';
+import Footer from '@/components/Footer';
 import { useRates } from '@/context/RatesContext';
 
 const Dashboard: React.FC = () => {
@@ -139,6 +140,9 @@ const Dashboard: React.FC = () => {
           <TransactionHistory />
         </motion.section>
       </main>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };
