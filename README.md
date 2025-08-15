@@ -4,7 +4,7 @@ A modern, responsive fintech web application built with React, TypeScript, and T
 
 ## 🚀 Live Demo
 
-**[View Live Demo](https://your-demo-link-here.com)**
+**[View Live Demo] https://nashe01-wiremit-interview-test.vercel.app/**
 
 ## 🛠️ Tech Stack
 
@@ -147,16 +147,16 @@ pocket-sparkle-flow-main/
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/yourusername/pocket-sparkle-flow.git
-   cd pocket-sparkle-flow
+   git clone https://github.com/nashe01/nashe01-wiremit_interview_test.git
+   cd wiremit_interview_test
    ```
 
 2. **Install Dependencies**
    ```bash
-   # Using npm
+   # Using npm(recommended)
    npm install
    
-   # Using bun (recommended)
+   # Using bun 
    bun install
    ```
 
@@ -170,7 +170,7 @@ pocket-sparkle-flow-main/
    ```
 
 4. **Open in Browser**
-   Navigate to `http://localhost:5173` to view the application
+   Navigate to `http://localhost:` to view the application
 
 ### Build for Production
 
@@ -190,14 +190,6 @@ bun run build
 - `preview` - Preview production build locally
 - `lint` - Run ESLint for code quality checks
 
-### Environment Configuration
-
-The application uses environment variables for configuration. Create a `.env.local` file in the root directory:
-
-```env
-VITE_APP_TITLE=Pocket Sparkle Flow
-VITE_API_BASE_URL=https://api.example.com
-```
 
 ## 🎯 Key Features
 

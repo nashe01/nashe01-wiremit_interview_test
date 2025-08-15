@@ -41,7 +41,7 @@ const Dashboard: React.FC = () => {
               <div>
                 <h1 className="text-lg font-semibold gradient-text">WireMit</h1>
                 <p className="text-sm text-muted-foreground">
-                  Welcome to WireMit, {user?.firstName}!
+                  Welcome, {user?.firstName}!
                 </p>
               </div>
             </div>
