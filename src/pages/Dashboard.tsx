@@ -70,13 +70,22 @@ const Dashboard: React.FC = () => {
         <div className="grid lg:grid-cols-4 gap-8">
           {/* Main Dashboard */}
           <div className="lg:col-span-3 space-y-8 scroll-smooth order-2 lg:order-1">
-            
-            {/* Send Money Section */}
+            {/* Ads Banner (Top of main content on desktop) */}
             <motion.section
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="dashboard-glass rounded-xl shadow-lg p-6"
+              className="dashboard-glass rounded-xl shadow-lg p-0 overflow-hidden hidden lg:block"
+            >
+              <AdsCarousel variant="banner" />
+            </motion.section>
+
+            {/* Send Money Section (mobile/tablet only) */}
+            <motion.section
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="dashboard-glass rounded-xl overflow-hidden shadow-lg p-6 lg:hidden"
             >
               <div className="flex items-center space-x-2 mb-4">
                 <Send className="w-5 h-5 text-[#2CD698]" />
@@ -88,11 +97,12 @@ const Dashboard: React.FC = () => {
 
           {/* Sidebar */}
           <div className="lg:col-span-1 space-y-6 order-1 lg:order-2">
+            {/* Ads on small/medium screens (keep existing design) */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="dashboard-glass rounded-xl shadow-lg p-4"
+              className="dashboard-glass rounded-xl shadow-lg p-4 h-64 lg:hidden"
             >
               <AdsCarousel />
             </motion.div>
@@ -102,7 +112,7 @@ const Dashboard: React.FC = () => {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="dashboard-glass rounded-xl shadow-lg p-6"
+              className="dashboard-glass rounded-xl shadow-lg p-6 h-64 lg:h-79"
             >
               <h3 className="text-lg font-semibold mb-4 text-[#2CD698]">Quick Stats</h3>
               <div className="space-y-3">
@@ -118,14 +128,39 @@ const Dashboard: React.FC = () => {
                   <span className="text-muted-foreground">Countries:</span>
                   <span className="font-medium">8</span>
                 </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">Pending Transfers:</span>
+                  <span className="font-medium">0</span>
+                </div>
               </div>
             </motion.div>
           </div>
         </div>
 
+        {/* Desktop divider between Ads and Send Money */}
+        <div className="relative items-center justify-center my-8 hidden lg:flex">
+          <span className="bg-gradient-to-r from-gray-100 via-gray-50 to-gray-100 px-4 text-2xl font-semibold" style={{ color: '#2CD698' }}>
+            Start a transfer
+          </span>
+        </div>
+
+        {/* Full-Width Send Money Section (desktop) */}
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="dashboard-glass rounded-xl overflow-hidden shadow-lg max-w-full mx-auto p-6 hidden lg:block mt-4"
+        >
+          <div className="flex items-center space-x-2 mb-4">
+            <Send className="w-5 h-5 text-[#2CD698]" />
+            <h2 className="text-xl font-semibold text-[#2CD698]">Send Money</h2>
+          </div>
+          <SendMoney />
+        </motion.section>
+
         {/* Divider */}
         <div className="relative flex items-center justify-center my-8">
-          <span className="bg-gradient-to-r from-gray-100 via-gray-50 to-gray-100 px-4 text-sm font-medium" style={{ color: '#2CD698' }}>
+          <span className="bg-gradient-to-r from-gray-100 via-gray-50 to-gray-100 px-4 text-2xl font-semibold" style={{ color: '#2CD698' }}>
             Your past activity
           </span>
         </div>
