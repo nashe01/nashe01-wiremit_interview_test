@@ -69,22 +69,17 @@ A modern, responsive fintech web application built with React, TypeScript, and T
 <img src="src/assets/presentation/signup.png" alt="Sign Up Form" style="width: 100%; max-width: 800px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin: 20px auto; display: block;" />
 
 ### 📱 Strategic Ad Placement
-
+ 
 **Multi-Device Advertisement Strategy:**
-- **Desktop Banner Design**: Full-width hero banner positioned above the "Send Money" section for maximum visibility and engagement
-- **Mobile/Tablet Sidebar**: Compact ad card in the right sidebar area to maintain content hierarchy
-- **Non-Intrusive Design**: Ads positioned strategically to avoid interfering with core functionality
-- **User Experience Priority**: Main content remains the primary focus across all devices
-- **Responsive Layout**: Ads adapt seamlessly between banner and sidebar layouts
-- **Performance Optimized**: Lazy loading and efficient rendering with smooth transitions
-
-**Why This Multi-Device Approach?**
-- **Desktop Banner**: 
+  - **Desktop Banner Design**: Full-width hero banner positioned above the "Send Money" section for maximum visibility and engagement
+  - **Non-Intrusive Design**: Ads positioned strategically to avoid interfering with core functionality
+  - **Responsive Layout**: Ads adapt seamlessly between banner and sidebar layouts
   - **Hero Positioning**: Above-the-fold placement captures immediate attention
   - **Full-Width Impact**: Maximum visual impact for premium advertising space
   - **Content Flow**: Natural progression from ads to action (Send Money)
   - **Revenue Optimization**: Premium banner placement commands higher engagement rates
-- **Mobile/Tablet Sidebar**:
+    
+ **Mobile/Tablet**:
   - **Reading Pattern**: Users scan left-to-right, keeping main content in primary viewing area
   - **Space Efficiency**: Compact sidebar placement maximizes content-to-ad ratio
   - **Touch-Friendly**: Optimized for mobile interaction patterns
