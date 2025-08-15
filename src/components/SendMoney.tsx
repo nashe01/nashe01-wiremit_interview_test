@@ -1,27 +1,25 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { CreditCard } from 'lucide-react';
+import { AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useRates } from '@/context/RatesContext';
 import { useToast } from '@/hooks/use-toast';
-import ReviewTransaction from './ReviewTransaction';
-import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
-import 'react-phone-number-input/style.css';
+import { isValidPhoneNumber } from 'react-phone-number-input';
+import SendMoneyStep1 from './SendMoneyStep1';
+import SendMoneyStep2 from './SendMoneyStep2';
+import SendMoneyStep3 from './SendMoneyStep3';
 
 interface SendMoneyForm {
   destinationCountry: string;
   amount: string;
   currency: string;
   recipientName: string;
-  recipientDetails: string;
+  recipientDetails: string; // Bank account
   paymentMethod: string;
   cardNumber?: string;
   cardExpiry?: string;
   cardCVV?: string;
   senderMobile?: string;
+  recipientMobile?: string; // NEW field
 }
 
 const SendMoney: React.FC = () => {
@@ -37,6 +35,7 @@ const SendMoney: React.FC = () => {
     cardExpiry: '',
     cardCVV: '',
     senderMobile: '',
+    recipientMobile: '', // NEW
   });
 
   const { getRate } = useRates();
@@ -47,7 +46,10 @@ const SendMoney: React.FC = () => {
     { code: 'GB', name: 'United Kingdom', currency: 'GBP' },
   ];
 
-  // --- Validation functions ---
+  // --- Formatting ---
+  const formatCardNumber = (value: string) => value.replace(/\D/g, '').replace(/(.{4})/g, '$1 ').trim();
+
+  // --- Validation ---
   const validateCardNumber = (cardNumber: string) => {
     const clean = cardNumber.replace(/\s+/g, '');
     if (!/^\d{13,19}$/.test(clean)) return false;
@@ -66,15 +68,22 @@ const SendMoney: React.FC = () => {
   };
 
   const validateExpiry = (expiry: string) => {
-    const [month, year] = expiry.split('/').map(Number);
-    if (!month || !year || month < 1 || month > 12) return false;
+    const cleaned = expiry.trim();
+    const parts = cleaned.includes('/') ? cleaned.split('/') : [];
+    if (parts.length !== 2) return false;
+    let [month, year] = parts.map(p => p.trim());
+    if (!/^\d{1,2}$/.test(month) || !/^\d{2,4}$/.test(year)) return false;
+    const monthNum = parseInt(month, 10);
+    const yearNum = year.length === 2 ? 2000 + parseInt(year, 10) : parseInt(year, 10);
+    if (monthNum < 1 || monthNum > 12) return false;
     const now = new Date();
-    const expiryDate = new Date(2000 + year, month - 1, 1);
+    const expiryDate = new Date(yearNum, monthNum - 1, 1);
     return expiryDate >= new Date(now.getFullYear(), now.getMonth(), 1);
   };
 
   const validateCVV = (cvv: string) => /^[0-9]{3,4}$/.test(cvv);
   const validateMobileNumber = (number: string) => isValidPhoneNumber(number || '');
+  const validateBankAccount = (account: string) => /^\d{6,20}$/.test(account);
 
   const calculateFee = (amountUSD: number, targetCurrency: string): number => {
     let feeRate = 0.05;
@@ -108,8 +117,9 @@ const SendMoney: React.FC = () => {
       case 1:
         const amountNum = parseFloat(formData.amount) || 0;
         return !!(formData.destinationCountry && formData.amount && amountNum >= 10 && amountNum <= 5000);
+
       case 2:
-        if (!formData.recipientName || !formData.recipientDetails) return false;
+        if (!formData.recipientName || !formData.paymentMethod) return false;
         if (formData.paymentMethod === 'credit-card') {
           return (
             !!formData.cardNumber &&
@@ -122,193 +132,106 @@ const SendMoney: React.FC = () => {
         } else if (formData.paymentMethod === 'mobile-money') {
           return !!formData.senderMobile && validateMobileNumber(formData.senderMobile);
         }
-        return !!formData.paymentMethod;
+        // Recipient must have either valid bank OR valid recipient mobile
+        return validateBankAccount(formData.recipientDetails) || validateMobileNumber(formData.recipientMobile);
+
       default:
         return true;
     }
   };
 
+  const handleConfirmSend = () => {
+    toast({
+      title: "Transfer Initiated!",
+      description: `Your transfer of $${formData.amount} USD to ${formData.recipientName} has been initiated.`,
+    });
+    alert('Money sent successfully!');
+    setFormData({
+      destinationCountry: '',
+      amount: '',
+      currency: 'USD',
+      recipientName: '',
+      recipientDetails: '',
+      paymentMethod: '',
+      cardNumber: '',
+      cardExpiry: '',
+      cardCVV: '',
+      senderMobile: '',
+      recipientMobile: '', // RESET
+    });
+    setCurrentStep(1);
+  };
+
   const renderStep = () => {
     switch (currentStep) {
-      case 1: {
-        const selectedCountry = countries.find(c => c.code === formData.destinationCountry);
-        const targetCurrency = selectedCountry?.currency || 'USD';
-        const amountNum = parseFloat(formData.amount) || 0;
-
+      case 1:
         return (
-          <motion.div key="step1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-6">
-            <h3 className="text-lg font-semibold mb-4">Where are you sending money?</h3>
-            <div className="space-y-4">
-              <div>
-                <Label htmlFor="country">Destination Country</Label>
-                <Select value={formData.destinationCountry} onValueChange={(value) => handleInputChange('destinationCountry', value)}>
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Select destination country" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {countries.map((country) => (
-                      <SelectItem key={country.code} value={country.code}>
-                        {country.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div>
-                <Label htmlFor="amount">Amount (USD)</Label>
-                <Input id="amount" type="number" placeholder="0.00" value={formData.amount} onChange={(e) => handleInputChange('amount', e.target.value)} className="text-lg"/>
-              </div>
-              {formData.amount && selectedCountry && (
-                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="p-4 bg-muted/50 rounded-lg">
-                  {amountNum < 10 || amountNum > 5000 ? (
-                    <div className="text-red-600 text-sm">Amount must be between $10 and $5,000</div>
-                  ) : (
-                    <>
-                      <div className="flex justify-between text-sm">
-                        <span>Transfer Fee (USD):</span>
-                        <span>${calculateFee(amountNum, targetCurrency)}</span>
-                      </div>
-                      <div className="flex justify-between text-sm text-muted-foreground">
-                        <span>Recipient Gets:</span>
-                        <span>{calculateReceivedAmount(amountNum, targetCurrency)} {targetCurrency}</span>
-                      </div>
-                    </>
-                  )}
-                </motion.div>
-              )}
-            </div>
-          </motion.div>
+          <SendMoneyStep1
+            formData={formData}
+            countries={countries}
+            onInputChange={handleInputChange}
+            calculateFee={calculateFee}
+            calculateReceivedAmount={calculateReceivedAmount}
+          />
         );
-      }
 
       case 2:
         return (
-          <motion.div key="step2" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="space-y-6">
-            <h3 className="text-lg font-semibold">Recipient & Payment Details</h3>
-            <div className="space-y-4">
-              <div>
-                <Label htmlFor="recipientName">Recipient Name</Label>
-                <Input id="recipientName" placeholder="Enter recipient's full name" value={formData.recipientName} onChange={(e) => handleInputChange('recipientName', e.target.value)} />
-              </div>
-              <div>
-                <Label htmlFor="recipientDetails">Recipient Contact Information</Label>
-                <Input id="recipientDetails" placeholder="Enter account or mobile number" value={formData.recipientDetails} onChange={(e) => handleInputChange('recipientDetails', e.target.value)} />
-              </div>
-
-              <div>
-                <Label htmlFor="paymentMethod">Payment Method</Label>
-                <Select value={formData.paymentMethod} onValueChange={(value) => handleInputChange('paymentMethod', value)}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select payment method" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="credit-card">
-                      <div className="flex items-center space-x-2"><CreditCard className="w-4 h-4" /><span>Credit/Debit Card</span></div>
-                    </SelectItem>
-                    <SelectItem value="mobile-money">
-                      <div className="flex items-center space-x-2"><span>📱</span><span>Mobile Money</span></div>
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {formData.paymentMethod === 'credit-card' && (
-                <div className="space-y-2">
-                  <Label htmlFor="cardNumber">Card Number</Label>
-                  <Input id="cardNumber" placeholder="1234 5678 9012 3456" value={formData.cardNumber} onChange={(e) => handleInputChange('cardNumber', e.target.value)} />
-                  {!validateCardNumber(formData.cardNumber) && formData.cardNumber && (<p className="text-red-600 text-sm">Invalid card number</p>)}
-
-                  <div className="flex space-x-2">
-                    <div className="flex-1">
-                      <Label htmlFor="expiry">Expiry</Label>
-                      <Input id="expiry" placeholder="MM/YY" value={formData.cardExpiry} onChange={(e) => handleInputChange('cardExpiry', e.target.value)} />
-                      {!validateExpiry(formData.cardExpiry) && formData.cardExpiry && (<p className="text-red-600 text-sm">Invalid expiry date</p>)}
-                    </div>
-                    <div className="flex-1">
-                      <Label htmlFor="cvv">CVV</Label>
-                      <Input id="cvv" placeholder="123" value={formData.cardCVV} onChange={(e) => handleInputChange('cardCVV', e.target.value)} />
-                      {!validateCVV(formData.cardCVV) && formData.cardCVV && (<p className="text-red-600 text-sm">Invalid CVV</p>)}
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {formData.paymentMethod === 'mobile-money' && (
-                <div>
-                  <Label htmlFor="senderMobile">Sender Mobile Number</Label>
-                  <PhoneInput
-                    id="senderMobile"
-                    placeholder="Enter phone number"
-                    defaultCountry="US"
-                    value={formData.senderMobile}
-                    onChange={(value) => handleInputChange('senderMobile', value || '')}
-                  />
-                  {!validateMobileNumber(formData.senderMobile) && formData.senderMobile && (
-                    <p className="text-red-600 text-sm">Invalid mobile number. Include country code</p>
-                  )}
-                </div>
-              )}
-            </div>
-          </motion.div>
+          <SendMoneyStep2
+            formData={formData}
+            onInputChange={handleInputChange}
+            formatCardNumber={formatCardNumber}
+            validateCardNumber={validateCardNumber}
+            validateExpiry={validateExpiry}
+            validateCVV={validateCVV}
+            validateMobileNumber={validateMobileNumber}
+            validateBankAccount={validateBankAccount}
+          />
         );
 
       case 3:
-        const selected = countries.find(c => c.code === formData.destinationCountry);
         return (
-          <ReviewTransaction
+          <SendMoneyStep3
             formData={formData}
-            selectedCountry={selected}
-            calculateFee={(amt) => calculateFee(amt, selected?.currency || 'USD')}
-            calculateReceivedAmount={(amt) => calculateReceivedAmount(amt, selected?.currency || 'USD')}
-            onConfirm={() => {
-              toast({ title: "Transfer Initiated!", description: `Your transfer of $${formData.amount} USD to ${formData.recipientName} has been initiated.` });
-              alert('Money sent successfully!'); // <-- success alert
-              setFormData({
-                destinationCountry: '',
-                amount: '',
-                currency: 'USD',
-                recipientName: '',
-                recipientDetails: '',
-                paymentMethod: '',
-                cardNumber: '',
-                cardExpiry: '',
-                cardCVV: '',
-                senderMobile: '',
-              });
-              setCurrentStep(1);
-            }}
+            countries={countries}
+            calculateFee={calculateFee}
+            calculateReceivedAmount={calculateReceivedAmount}
+            onConfirm={handleConfirmSend}
             onEdit={() => setCurrentStep(1)}
           />
         );
 
-      default: return null;
+      default:
+        return null;
     }
   };
 
   return (
-    <div className="space-y-6 scroll-smooth">
-      {/* Progress Steps */}
-      <div className="flex justify-between items-center mb-8 scroll-smooth">
-        {[1,2,3].map((step) => (
-          <div key={step} className={`flex items-center ${step < currentStep ? 'text-primary' : step === currentStep ? 'text-primary' : 'text-muted-foreground'}`}>
+    <div className="space-y-6">
+      <div className="flex justify-between items-center mb-8">
+        {[1, 2, 3].map((step) => (
+          <div key={step} className={`flex items-center ${step <= currentStep ? 'text-primary' : 'text-muted-foreground'}`}>
             <div className={`w-8 h-8 rounded-full border-2 flex items-center justify-center text-sm font-medium ${step < currentStep ? 'bg-primary border-primary text-white' : step === currentStep ? 'border-primary text-primary' : 'border-muted-foreground text-muted-foreground'}`}>
               {step < currentStep ? '✓' : step}
             </div>
-            {step < 3 && <div className={`w-16 h-0.5 mx-2 ${step < currentStep ? 'bg-primary' : 'bg-muted-foreground'}`}/>}
+            {step < 3 && <div className={`w-16 h-0.5 mx-2 ${step < currentStep ? 'bg-primary' : 'bg-muted-foreground'}`} />}
           </div>
         ))}
       </div>
 
-      {/* Step Content */}
       <AnimatePresence mode="wait">{renderStep()}</AnimatePresence>
 
-      {/* Navigation Buttons */}
-      <div className="flex justify-between pt-6 scroll-smooth">
+      <div className="flex justify-between pt-6">
         <Button variant="outline" onClick={prevStep} disabled={currentStep === 1}>Previous</Button>
-        <Button onClick={nextStep} disabled={!isStepValid(currentStep)}>{currentStep === 3 ? 'Review & Send' : 'Next'}</Button>
+        {currentStep < 3 ? (
+          <Button onClick={nextStep} disabled={!isStepValid(currentStep)}>Next</Button>
+        ) : (
+          <Button onClick={handleConfirmSend} disabled={!isStepValid(3)}>Review & Send</Button>
+        )}
       </div>
     </div>
   );
 };
 
 export default SendMoney;
+
