@@ -40,8 +40,6 @@ A modern, responsive fintech web application built with React, TypeScript, and T
   - Note on fees: The design allows different fee rules per currency or payment method. For this demo GBP and ZAR are implemented per requirements; others fall back to a default.
 - **Ads Banner & Carousel**:
   - Desktop: full-width banner placed above the "Send Money" section with subtle left/right side-fade overlays.
-  - Mobile/Tablet: compact ad card shown in the right sidebar area.
-  - Images: uses `src/assets/card1.jpg`, `card2.jpg`, `card3.jpg` (text and subtitles still read from `src/data/ads.json`).
   - Behavior: auto-plays every 6s, outgoing slide fades out smoothly (no pop-in scale), manual arrows and dot indicators, pauses on hover.
 - **Mock Transaction History**: 15+ sample transactions with pagination and basic filtering.
 
