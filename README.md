@@ -208,9 +208,9 @@ bun run build
 - **🎪 Ad Integration**: Strategic advertisement placement
 - **⚡ Performance**: Optimized with Vite and modern React patterns
 
-### 📊 Transaction Management Showcase
+- **📊 Transaction Management Showcase**
 
-<img src="src/assets/presentation/transaction history.png" alt="Transaction History Interface" style="width: 100%; max-width: 800px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin: 20px auto; display: block;" />
+
 
 ## ✅ Validation & Data Integrity
 
