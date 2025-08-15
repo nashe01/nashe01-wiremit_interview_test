@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useRates } from '@/context/RatesContext';
 import { useToast } from '@/hooks/use-toast';
 import ReviewTransaction from './ReviewTransaction';
+import TransactionStatusModal from './TransactionStatusModal';
 import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 
@@ -26,6 +27,7 @@ interface SendMoneyForm {
 
 const SendMoney: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(1);
+  const [showTransactionModal, setShowTransactionModal] = useState(false);
   const [formData, setFormData] = useState<SendMoneyForm>({
     destinationCountry: '',
     amount: '',
@@ -126,6 +128,23 @@ const SendMoney: React.FC = () => {
       default:
         return true;
     }
+  };
+
+  const handleTransactionComplete = () => {
+    setShowTransactionModal(false);
+    setFormData({
+      destinationCountry: '',
+      amount: '',
+      currency: 'USD',
+      recipientName: '',
+      recipientDetails: '',
+      paymentMethod: '',
+      cardNumber: '',
+      cardExpiry: '',
+      cardCVV: '',
+      senderMobile: '',
+    });
+    setCurrentStep(1);
   };
 
   const renderStep = () => {
@@ -310,20 +329,7 @@ const SendMoney: React.FC = () => {
             calculateReceivedAmount={(amt) => calculateReceivedAmount(amt, selected?.currency || 'USD')}
             onConfirm={() => {
               toast({ title: "Transfer Initiated!", description: `Your transfer of $${formData.amount} USD to ${formData.recipientName} has been initiated.` });
-              alert('Money sent successfully!');
-              setFormData({
-                destinationCountry: '',
-                amount: '',
-                currency: 'USD',
-                recipientName: '',
-                recipientDetails: '',
-                paymentMethod: '',
-                cardNumber: '',
-                cardExpiry: '',
-                cardCVV: '',
-                senderMobile: '',
-              });
-              setCurrentStep(1);
+              setShowTransactionModal(true);
             }}
             onEdit={() => setCurrentStep(1)}
           />
@@ -355,6 +361,15 @@ const SendMoney: React.FC = () => {
         <Button variant="outline" onClick={prevStep} disabled={currentStep === 1}>Previous</Button>
         <Button onClick={nextStep} disabled={!isStepValid(currentStep)}>{currentStep === 3 ? 'Review & Send' : 'Next'}</Button>
       </div>
+
+      {/* Transaction Status Modal */}
+      <TransactionStatusModal
+        isOpen={showTransactionModal}
+        onClose={handleTransactionComplete}
+        amount={formData.amount}
+        currency={formData.currency}
+        recipientName={formData.recipientName}
+      />
     </div>
   );
 };
