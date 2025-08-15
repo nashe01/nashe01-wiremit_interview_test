@@ -9,7 +9,6 @@ import TransactionHistory from '@/components/TransactionHistory';
 import AdsCarousel from '@/components/AdsCarousel';
 import Footer from '@/components/Footer';
 import ThemeToggle from '@/components/ThemeToggle';
-import ThemeStatus from '@/components/ThemeStatus';
 import { useRates } from '@/context/RatesContext';
 
 const Dashboard: React.FC = () => {
@@ -47,9 +46,6 @@ const Dashboard: React.FC = () => {
             </div>
 
             <div className="flex items-center space-x-4">
-              {/* Theme Status */}
-              <ThemeStatus />
-              
               {/* Theme Toggle */}
               <ThemeToggle />
               

@@ -5,9 +5,7 @@ import { Badge } from '@/components/ui/badge';
 const ThemeStatus: React.FC = () => {
   const { theme } = useTheme();
 
-  const getThemeColor = () => {
-    return theme === 'dark' ? 'bg-gray-700' : 'bg-[#2CD698]';
-  };
+  
 
   const getThemeText = () => {
     return theme === 'dark' ? 'Dark' : 'Light';
@@ -18,7 +16,7 @@ const ThemeStatus: React.FC = () => {
       <span className="text-muted-foreground">Theme:</span>
       <Badge 
         variant="secondary" 
-        className={`${getThemeColor()} text-white text-xs px-2 py-1`}
+        
       >
         {getThemeText()}
       </Badge>
