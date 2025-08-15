@@ -207,8 +207,96 @@ bun run build
 - **📈 Real-time Rates**: Dynamic exchange rate calculations
 - **🎪 Ad Integration**: Strategic advertisement placement
 - **⚡ Performance**: Optimized with Vite and modern React patterns
-- **📊 Transaction Management Showcase**
 
+### 📊 Transaction Management Showcase
+
+<img src="src/assets/presentation/transaction history.png" alt="Transaction History Interface" style="width: 100%; max-width: 800px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin: 20px auto; display: block;" />
+
+## ✅ Validation & Data Integrity
+
+### 🔐 Form Validation System
+
+**React Hook Form + Zod Schema Validation:**
+- **Type Safety**: Full TypeScript integration with Zod schemas
+- **Real-time Validation**: Instant feedback as users type
+- **Error Handling**: Comprehensive error messages and visual indicators
+- **Field Validation**: Individual field validation with custom rules
+
+### 📝 User Registration Validation
+
+**Sign Up Form Validations:**
+- **Email Format**: Validates proper email structure and format
+- **Password Strength**: Minimum 8 characters with complexity requirements
+- **Password Confirmation**: Ensures password and confirm password match
+- **Required Fields**: All mandatory fields must be completed
+- **Name Validation**: First name and last name are required fields
+- **Duplicate Check**: Prevents registration with existing email addresses
+
+<img src="src/assets/validations/signup validation.png" alt="Sign Up Form Validation" style="width: 100%; max-width: 800px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin: 20px auto; display: block;" />
+
+### 🔑 User Authentication Validation
+
+**Sign In Form Validations:**
+- **Email Verification**: Ensures email exists in the system
+- **Password Match**: Validates password against stored credentials
+- **Session Management**: Handles login state and persistence
+- **Error Feedback**: Clear messages for invalid credentials
+
+<img src="src/assets/validations/incorrect password or email.png" alt="Authentication Error Handling" style="width: 100%; max-width: 800px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin: 20px auto; display: block;" />
+
+### 💰 Money Transfer Validation
+
+**Multi-Step Transfer Process:**
+- **Recipient Validation**: Ensures recipient information is complete
+- **Amount Validation**: Minimum and maximum transfer limits
+- **Currency Validation**: Validates currency codes and exchange rates
+- **Fee Calculation**: Dynamic fee calculation based on amount and currency
+- **Balance Check**: Verifies sufficient funds for transfer
+- **Transaction Confirmation**: Final review before processing
+
+<img src="src/assets/validations/transferlimit.png" alt="Transfer Limit Validation" style="width: 100%; max-width: 800px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin: 20px auto; display: block;" />
+
+### 📱 Input Field Validations
+
+**Real-time Input Validation:**
+- **Phone Number**: International phone number format validation
+- **Amount Fields**: Numeric input with decimal precision
+- **Currency Selection**: Dropdown validation for supported currencies
+- **Date Fields**: Date picker with range validation
+- **Required Field Indicators**: Visual cues for mandatory inputs
+
+<div style="display: flex; gap: 20px; justify-content: center; margin: 20px 0;">
+  <img src="src/assets/validations/blank inputs.png" alt="Blank Input Validation" style="width: 45%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" />
+  <img src="src/assets/validations/invalid input format.png" alt="Invalid Input Format Validation" style="width: 45%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" />
+</div>
+
+### 🛡️ Data Security Validations
+
+**Security Measures:**
+- **Input Sanitization**: Prevents XSS and injection attacks
+- **Data Encryption**: Secure storage of sensitive information
+- **Session Validation**: Secure session management
+- **Access Control**: Route protection for authenticated users
+
+### 📊 Transaction Data Validation
+
+**Transaction Integrity:**
+- **Amount Verification**: Ensures transfer amounts are valid
+- **Currency Conversion**: Validates exchange rate calculations
+- **Fee Validation**: Confirms fee calculations are accurate
+- **Status Tracking**: Monitors transaction state changes
+- **Error Handling**: Graceful handling of validation failures
+
+### 🎯 Validation User Experience
+
+**User-Friendly Validation:**
+- **Instant Feedback**: Real-time validation messages
+- **Visual Indicators**: Color-coded success/error states
+- **Progressive Disclosure**: Step-by-step form completion
+- **Error Recovery**: Clear guidance for fixing validation issues
+- **Accessibility**: Screen reader support for validation messages
+
+<img src="src/assets/validations/user-friendly.png" alt="User-Friendly Validation Experience" style="width: 100%; max-width: 800px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin: 20px auto; display: block;" />
 
 ## 📄 License
 
