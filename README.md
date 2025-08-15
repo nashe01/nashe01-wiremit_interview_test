@@ -57,7 +57,7 @@ A modern, responsive fintech web application built with React, TypeScript, and T
 ### 5. Design Thinking Presentation
 - **Interpreting unclear requirements**: Documented assumptions on fee rules, supported countries (UK/GBP, South Africa/ZAR), rounding-up policy, and mock storage.
 - **Component structure & data flow**: Context-driven data (Auth, Rates), page-level composition (Dashboard), presentational components (Send Money, Ads, History) with explicit props and derived state.
-- **Scaling**: Add more countries by extending rates + fee table; UI scales via responsive layout and shadcn/ui primitives; business rules centralized for currency-specific behavior.
+- **Scaling**: Add more countries by extending rates + fee table; UI scales via responsive layout and shadcn/ui primitives; business rules centralised for currency-specific behaviour.
 
 ## 🔎 Areas of Interest
 
@@ -65,10 +65,9 @@ A modern, responsive fintech web application built with React, TypeScript, and T
 - **Credentials storage (demo)**: Stored in `localStorage` for the mock. Passwords are not hashed because there is no backend—this would be unacceptable in production.
 - **XSS**: No `dangerouslySetInnerHTML`; input is handled by controlled components; no third-party HTML injection.
 - **CSRF**: Not applicable here (no authenticated server mutations). In production, we would use same-site cookies/CSRF tokens.
-- **API keys**: None required for the FX demo endpoint.
 
 ### 2. Mobile Responsiveness
-- **Approach**: Mobile-first with Tailwind breakpoints; layouts adapt from single column to multi-column. Touch targets and carousel controls are optimized for mobile.
+- **Approach**: Mobile-first with Tailwind breakpoints; layouts adapt from single column to multi-column. Touch targets and carousel controls are optimised for mobile.
 
 ### 3. UI/UX
 - **Navigation**: Clear multi-step flow for sending money; review step isolates “Edit Details” and “Confirm & Send”.
@@ -80,7 +79,7 @@ A modern, responsive fintech web application built with React, TypeScript, and T
 - **Numeric ranges**: Send amount validated with min ($10) and max ($5,000); card fields validated (Luhn for card, expiry, CVV) and phone numbers validated by library.
 - **Invalid input prevention**: Controlled inputs, schema-driven validation patterns, and user-friendly error messages.
 
-### 🌿 Color Choice: Green Theme
+### 🌿 Colour Choice: Green Theme
 
 **Primary Color:** `hsl(159 61% 51%)` - A vibrant emerald green
 
@@ -95,8 +94,8 @@ A modern, responsive fintech web application built with React, TypeScript, and T
 ### 🌓 Light & Dark Mode
 
 **Implementation Strategy:**
-- **System Preference Detection**: Automatically detects user's OS theme preference
-- **Persistent Storage**: Remembers user's choice across sessions using localStorage
+- **System Preference Detection**: Automatically detects the user's OS theme preference
+- **Persistent Storage**: Remembers the user's choice across sessions using localStorage
 - **Smooth Transitions**: 300ms CSS transitions for seamless theme switching
 - **Accessibility Compliance**: Maintains WCAG contrast ratios in both themes
 
@@ -139,7 +138,7 @@ A modern, responsive fintech web application built with React, TypeScript, and T
 **Why Right Side?**
 - **Reading Pattern**: Users typically scan left-to-right, top-to-bottom
 - **Content Focus**: Main features remain in the primary viewing area
-- **Revenue Optimization**: Strategic placement for better engagement rates
+- **Revenue Optimisation**: Strategic placement for better engagement rates
 - **User Satisfaction**: Maintains clean, uncluttered interface
 
 <img src="src/assets/presentation/sendmoney.png" alt="Send Money Interface with Ad Placement" style="width: 100%; max-width: 800px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin: 20px auto; display: block;" />
@@ -148,9 +147,9 @@ A modern, responsive fintech web application built with React, TypeScript, and T
 
 **Multi-Device Compatibility:**
 - **Mobile-First Approach**: Designed for mobile devices first, then enhanced for larger screens
-- **Breakpoint Strategy**: Tailwind CSS breakpoints for consistent responsive behavior
-- **Touch-Friendly**: Optimized touch targets and gestures for mobile users
-- **Performance Optimized**: Efficient rendering across all device types
+- **Breakpoint Strategy**: Tailwind CSS breakpoints for consistent responsive behaviour
+- **Touch-Friendly**: Optimised touch targets and gestures for mobile users
+- **Performance Optimised**: Efficient rendering across all device types
 
 **Responsive Features:**
 - **Flexible Grid System**: Adapts to different screen sizes automatically
