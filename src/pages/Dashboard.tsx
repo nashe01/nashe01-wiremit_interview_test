@@ -38,23 +38,19 @@ const Dashboard: React.FC = () => {
               <div>
                 <h1 className="text-lg font-semibold gradient-text">WireMit</h1>
                 <p className="text-sm text-muted-foreground">
-                  Welcome back, {user?.firstName}!
+                  Welcome to WireMit, {user?.firstName}!
                 </p>
               </div>
             </div>
 
             <div className="flex items-center space-x-4">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={refreshRates}
-                disabled={ratesLoading}
-                className="hidden sm:flex"
+              {/* Logout button with green text */}
+              <Button 
+                variant="outline" 
+                size="sm" 
+                onClick={handleLogout} 
+                style={{ color: '#2CD698', borderColor: '#2CD698' }}
               >
-                <RefreshCw className={`w-4 h-4 mr-2 ${ratesLoading ? 'animate-spin' : ''}`} />
-                Refresh Rates
-              </Button>
-              <Button variant="outline" size="sm" onClick={handleLogout}>
                 <LogOut className="w-4 h-4 mr-2" />
                 Logout
               </Button>
@@ -125,7 +121,8 @@ const Dashboard: React.FC = () => {
 
         {/* Divider */}
         <div className="relative flex items-center justify-center my-8">
-          <span className="bg-background px-4 text-muted-foreground text-sm font-medium">
+          {/* Updated "Your past activity" text color */}
+          <span className="bg-background px-4 text-sm font-medium" style={{ color: '#2CD698' }}>
             Your past activity
           </span>
         </div>
@@ -150,3 +147,4 @@ const Dashboard: React.FC = () => {
 };
 
 export default Dashboard;
+
