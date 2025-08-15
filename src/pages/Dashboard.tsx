@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Send, LogOut, User, History, RefreshCw } from 'lucide-react';
+import { Send, LogOut, History } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/context/AuthContext';
 import { useNavigate } from 'react-router-dom';
@@ -38,20 +38,20 @@ const Dashboard: React.FC = () => {
               <div>
                 <h1 className="text-lg font-semibold gradient-text">WireMit</h1>
                 <p className="text-sm text-muted-foreground">
-                  Welcome to WireMit, {user?.firstName}!
+                  Welcome back, {user?.firstName}!
                 </p>
               </div>
             </div>
 
             <div className="flex items-center space-x-4">
-              {/* Logout button with green text */}
+              {/* Logout button with green text and border */}
               <Button 
                 variant="outline" 
                 size="sm" 
                 onClick={handleLogout} 
                 style={{ color: '#2CD698', borderColor: '#2CD698' }}
               >
-                <LogOut className="w-4 h-4 mr-2" />
+                <LogOut className="w-4 h-4 mr-2 text-[#2CD698]" />
                 Logout
               </Button>
             </div>
@@ -61,7 +61,6 @@ const Dashboard: React.FC = () => {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 scroll-smooth">
-
         {/* Dashboard Grid */}
         <div className="grid lg:grid-cols-4 gap-8">
           {/* Main Dashboard */}
@@ -72,15 +71,14 @@ const Dashboard: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="space-y-6 p-6 bg-card rounded-xl shadow-sm border border-border"
+              className="space-y-6 p-6 bg-[#1F1F1F] rounded-xl shadow-lg border border-[#2CD698]/40"
             >
               <div className="flex items-center space-x-2 mb-4">
-                <Send className="w-5 h-5 text-primary" />
-                <h2 className="text-xl font-semibold" style={{ color: '#2CD698' }}>Send Money</h2>
+                <Send className="w-5 h-5 text-[#2CD698]" />
+                <h2 className="text-xl font-semibold text-[#2CD698]">Send Money</h2>
               </div>
               <SendMoney />
             </motion.section>
-
           </div>
 
           {/* Sidebar */}
@@ -89,6 +87,7 @@ const Dashboard: React.FC = () => {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
+              className="p-4 bg-[#1F1F1F] rounded-xl shadow-lg border border-[#2CD698]/40"
             >
               <AdsCarousel />
             </motion.div>
@@ -98,9 +97,9 @@ const Dashboard: React.FC = () => {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="card-elevated"
+              className="p-6 bg-[#1F1F1F] rounded-xl shadow-lg border border-[#2CD698]/40"
             >
-              <h3 className="text-lg font-semibold mb-4" style={{ color: '#2CD698' }}>Quick Stats</h3>
+              <h3 className="text-lg font-semibold mb-4 text-[#2CD698]">Quick Stats</h3>
               <div className="space-y-3">
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Total Sent:</span>
@@ -121,7 +120,6 @@ const Dashboard: React.FC = () => {
 
         {/* Divider */}
         <div className="relative flex items-center justify-center my-8">
-          {/* Updated "Your past activity" text color */}
           <span className="bg-background px-4 text-sm font-medium" style={{ color: '#2CD698' }}>
             Your past activity
           </span>
@@ -132,19 +130,19 @@ const Dashboard: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="space-y-6 p-6 bg-card rounded-xl shadow-sm border border-border max-w-full mx-auto"
+          className="space-y-6 p-6 bg-[#1F1F1F] rounded-xl shadow-lg border border-[#2CD698]/40 max-w-full mx-auto"
         >
           <div className="flex items-center space-x-2 mb-4">
-            <History className="w-5 h-5 text-primary" />
-            <h2 className="text-xl font-semibold" style={{ color: '#2CD698' }}>Transaction History</h2>
+            <History className="w-5 h-5 text-[#2CD698]" />
+            <h2 className="text-xl font-semibold text-[#2CD698]">Transaction History</h2>
           </div>
           <TransactionHistory />
         </motion.section>
-
       </main>
     </div>
   );
 };
 
 export default Dashboard;
+
 
