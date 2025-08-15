@@ -232,7 +232,7 @@ bun run build
 - **Name Validation**: First name and last name are required fields
 - **Duplicate Check**: Prevents registration with existing email addresses
 
-<img src="src/assets/validations/signup validation.png" alt="Sign Up Form Validation" style="width: 80%; max-width: 600px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin: 20px auto; display: block;" />
+<img src="src/assets/validations/signup validation.png" alt="Sign Up Form Validation" style="width: 60%; max-width: 450px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin: 20px auto; display: block;" />
 
 ### 🔑 User Authentication Validation
 
