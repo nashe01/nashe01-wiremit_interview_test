@@ -38,7 +38,11 @@ A modern, responsive fintech web application built with React, TypeScript, and T
   - FX conversion uses the latest fetched rate; the recipient’s amount is calculated after deducting the fee.
   - **Rounding policy**: We round UP (ceil) where applicable to avoid underpaying recipients and to keep totals conservative and predictable.
   - Note on fees: The design allows different fee rules per currency or payment method. For this demo GBP and ZAR are implemented per requirements; others fall back to a default.
-- **Mock Ads**: Carousel displays 3 rotating ads with auto-play and manual navigation.
+- **Ads Banner & Carousel**:
+  - Desktop: full-width banner placed above the "Send Money" section with subtle left/right side-fade overlays.
+  - Mobile/Tablet: compact ad card shown in the right sidebar area.
+  - Images: uses `src/assets/card1.jpg`, `card2.jpg`, `card3.jpg` (text and subtitles still read from `src/data/ads.json`).
+  - Behavior: auto-plays every 6s, outgoing slide fades out smoothly (no pop-in scale), manual arrows and dot indicators, pauses on hover.
 - **Mock Transaction History**: 15+ sample transactions with pagination and basic filtering.
 
 ### 4. FX Rates API
@@ -167,13 +171,13 @@ A modern, responsive fintech web application built with React, TypeScript, and T
 ```
 pocket-sparkle-flow-main/
 ├── public/                 # Static assets and public files
-│   ├── ads/               # Advertisement images
+│   ├── ads/               # Advertisement images (legacy; current carousel uses images from src/assets)
 │   ├── logo.png           # Application logo
 │   └── placeholder.svg    # Default placeholder image
 ├── src/                   # Source code directory
 │   ├── components/        # Reusable UI components
 │   │   ├── ui/           # Shadcn/ui components
-│   │   ├── AdsCarousel.tsx
+│   │   ├── AdsCarousel.tsx  # Supports variant="banner" | "sidebar"
 │   │   ├── Navbar.tsx
 │   │   ├── SendMoney.tsx
 │   │   └── ...           # Other components
@@ -182,7 +186,7 @@ pocket-sparkle-flow-main/
 │   │   ├── RatesContext.tsx
 │   │   └── ThemeContext.tsx
 │   ├── data/             # Mock data and static content
-│   │   ├── ads.json
+│   │   ├── ads.json          # Supplies text/subtitles; images come from src/assets/card*.jpg
 │   │   ├── fees.json
 │   │   └── transactions.json
 │   ├── hooks/            # Custom React hooks
