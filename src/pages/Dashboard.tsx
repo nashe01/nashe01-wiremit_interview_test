@@ -20,7 +20,7 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background scroll-smooth">
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 scroll-smooth">
       {/* Header */}
       <motion.header
         initial={{ opacity: 0, y: -20 }}
@@ -44,7 +44,7 @@ const Dashboard: React.FC = () => {
             </div>
 
             <div className="flex items-center space-x-4">
-              {/* Logout button with green text and border */}
+              {/* Logout button */}
               <Button 
                 variant="outline" 
                 size="sm" 
@@ -71,7 +71,7 @@ const Dashboard: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="space-y-6 p-6 bg-[#1F1F1F] rounded-xl shadow-lg border border-[#2CD698]/40"
+              className="space-y-6 p-6 bg-white/10 backdrop-blur-md rounded-xl shadow-lg border border-white/20"
             >
               <div className="flex items-center space-x-2 mb-4">
                 <Send className="w-5 h-5 text-[#2CD698]" />
@@ -87,7 +87,7 @@ const Dashboard: React.FC = () => {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="p-4 bg-[#1F1F1F] rounded-xl shadow-lg border border-[#2CD698]/40"
+              className="p-4 bg-white/10 backdrop-blur-md rounded-xl shadow-lg border border-white/20"
             >
               <AdsCarousel />
             </motion.div>
@@ -97,7 +97,7 @@ const Dashboard: React.FC = () => {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="p-6 bg-[#1F1F1F] rounded-xl shadow-lg border border-[#2CD698]/40"
+              className="p-6 bg-white/10 backdrop-blur-md rounded-xl shadow-lg border border-white/20"
             >
               <h3 className="text-lg font-semibold mb-4 text-[#2CD698]">Quick Stats</h3>
               <div className="space-y-3">
@@ -120,7 +120,7 @@ const Dashboard: React.FC = () => {
 
         {/* Divider */}
         <div className="relative flex items-center justify-center my-8">
-          <span className="bg-background px-4 text-sm font-medium" style={{ color: '#2CD698' }}>
+          <span className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 px-4 text-sm font-medium" style={{ color: '#2CD698' }}>
             Your past activity
           </span>
         </div>
@@ -130,7 +130,7 @@ const Dashboard: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="space-y-6 p-6 bg-[#1F1F1F] rounded-xl shadow-lg border border-[#2CD698]/40 max-w-full mx-auto"
+          className="space-y-6 p-6 bg-white/10 backdrop-blur-md rounded-xl shadow-lg border border-white/20 max-w-full mx-auto"
         >
           <div className="flex items-center space-x-2 mb-4">
             <History className="w-5 h-5 text-[#2CD698]" />
