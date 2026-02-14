@@ -78,12 +78,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     users.push(newUser);
     localStorage.setItem('users', JSON.stringify(users));
 
-    // Auto login after signup
-    const userWithoutPassword = { ...newUser };
-    delete userWithoutPassword.password;
-    setUser(userWithoutPassword);
-    localStorage.setItem('currentUser', JSON.stringify(userWithoutPassword));
-    
+    // Do not auto-login; user must sign in after sign up
     return true;
   };
 

@@ -78,14 +78,14 @@ const SignUpForm: React.FC<SignUpFormProps> = ({ onSuccess, onSwitchToSignIn }) 
       if (success) {
         toast({
           title: "Account created!",
-          description: "Welcome to WireMit. You've been logged in automatically.",
+          description: "Please sign in with your new account.",
         });
-        onSuccess();
+        onSwitchToSignIn();
       } else {
         toast({
           variant: "destructive",
           title: "Registration failed",
-          description: "An account with this email already exists.",
+          description: "This account already exists.",
         });
       }
     } catch (error) {

@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X } from 'lucide-react';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
 import SignInForm from './SignInForm';
 import SignUpForm from './SignUpForm';
 
@@ -22,15 +20,6 @@ const OnboardingModal: React.FC<OnboardingModalProps> = ({ isOpen, onClose, onSu
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-md p-0 bg-gradient-card border-0 shadow-elegant scroll-smooth">
         <div className="relative scroll-smooth">
-          <Button
-            variant="ghost"
-            size="icon"
-            className="absolute right-2 top-2 z-10"
-            onClick={onClose}
-          >
-            <X className="w-4 h-4" />
-          </Button>
-          
           <div className="p-6 scroll-smooth">
             <AnimatePresence mode="wait">
               {currentView === 'signin' ? (
