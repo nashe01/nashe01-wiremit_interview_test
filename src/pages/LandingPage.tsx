@@ -114,8 +114,8 @@ const LandingPage: React.FC = () => {
                   transition={{ delay: 0.2, duration: 0.6 }}
                   className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-foreground"
                 >
-                  One app, all things{' '}
-                  <span className="gradient-text">money</span>
+                  One app, all transactions{' '}
+                  <span className="gradient-text">less time</span>
                 </motion.h1>
                 
                 <motion.p
