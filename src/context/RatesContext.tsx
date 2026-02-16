@@ -41,21 +41,37 @@ export const RatesProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       }
       
       const data = await response.json();
-      
-      // Transform the data to our format - assuming the API returns rates object
+
+      // API returns array like: [{ "USD": 1 }, { "GBP": 0.74 }, { "ZAR": 17.75 }]
+      // Step 1: Normalize to flat object
+      const normalizedRates: Record<string, number> = Array.isArray(data)
+        ? data.reduce((acc: Record<string, number>, item: Record<string, number>) => {
+            const currency = Object.keys(item)[0];
+            acc[currency] = Number(item[currency]);
+            return acc;
+          }, {})
+        : (data as Record<string, number>);
+
+      // Step 2: Extract ONLY supported currencies (GBP and ZAR)
       const transformedRates: ExchangeRate[] = [
-        { currency: 'GBP', rate: data.GBP || 0.8, symbol: '£' },
-        { currency: 'EUR', rate: data.EUR || 0.85, symbol: '€' },
-        { currency: 'ZAR', rate: data.ZAR || 18.5, symbol: 'R' }
+        {
+          currency: 'GBP',
+          rate: normalizedRates['GBP'] ?? 0.8,
+          symbol: '£'
+        },
+        {
+          currency: 'ZAR',
+          rate: normalizedRates['ZAR'] ?? 18.5,
+          symbol: 'R'
+        }
       ];
-      
+
       setRates(transformedRates);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to fetch rates');
-      // Fallback rates if API fails
+      // Fallback rates if API fails (supported currencies only)
       setRates([
         { currency: 'GBP', rate: 0.8, symbol: '£' },
-        { currency: 'EUR', rate: 0.85, symbol: '€' },
         { currency: 'ZAR', rate: 18.5, symbol: 'R' }
       ]);
     } finally {
