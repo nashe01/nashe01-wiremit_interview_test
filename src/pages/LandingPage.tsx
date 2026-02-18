@@ -37,7 +37,7 @@ const LandingPage: React.FC = () => {
     {
       icon: Shield,
       title: 'Bank-Level Security',
-      description: 'Your money and data are always protected'
+      description: 'Your money is always protected'
     },
     {
       icon: Star,
