@@ -135,10 +135,7 @@ const LandingPage: React.FC = () => {
                 transition={{ delay: 0.6, duration: 0.6 }}
                 className="flex flex-col sm:flex-row gap-4"
               >
-                <Button onClick={handleGetStarted} className="btn-hero group">
-                  Get Started
-                  <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </Button>
+                
               </motion.div>
 
               {/* Features */}
