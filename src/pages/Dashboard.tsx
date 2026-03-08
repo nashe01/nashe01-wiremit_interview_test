@@ -38,7 +38,7 @@ const Dashboard: React.FC = () => {
                 className="w-10 h-10 object-contain"
               />
               <div>
-                <h1 className="text-lg font-semibold gradient-text">WireMit</h1>
+                <h1 className="text-lg font-semibold gradient-text">WireMit transfer</h1>
                 <p className="text-sm text-muted-foreground">
                   Welcome, {user?.firstName}!
                 </p>
